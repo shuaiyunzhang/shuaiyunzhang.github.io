@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://nekonyan.me/"/>
-  <updated>2015-03-27T14:09:10.000Z</updated>
+  <updated>2015-03-27T14:11:43.000Z</updated>
   <id>http://nekonyan.me/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://nekonyan.me/2015/03/27/%E5%8D%9A%E5%AE%A2%E4%BB%8EGitHub%E8%BF%81%E7%A7%BB%E5%88%B0GitCafe%E7%9A%84%E8%AE%B0%E5%BD%95/"/>
     <id>http://nekonyan.me/2015/03/27/博客从GitHub迁移到GitCafe的记录/</id>
     <published>2015-03-27T09:32:05.000Z</published>
-    <updated>2015-03-27T14:09:10.000Z</updated>
+    <updated>2015-03-27T14:11:43.000Z</updated>
     <content type="html"><![CDATA[<p>有时候GitHub的确很难打开（就比如今天下午一些时候），相应的托管在上面的博客访问速度也受到了影响。以前看到过别人将博客托管在GitCafe上，当时的访问速度让我眼前一亮，十分流畅。因此，时隔这么久之后，我决定将Hexo博客迁移到GitCafe上，也算是做个备份。本篇文章主要是对托管在GitHub上的Hexo博客迁移到GitCafe过程的记录，也算是我开始认真写博客的开始。</p>
 <h2 id="准备工作">准备工作</h2><ol>
 <li><p>首先需要注册一个<a href="https://gitcafe.com" target="_blank" rel="external">GitCafe</a>账号，GitCafe的操作习惯和GitHub很相似，熟悉GitHub的上手比较快。</p>
@@ -37,7 +37,7 @@
 <h2 id="绑定域名">绑定域名</h2><p>进入项目管理界面，点击自定义域名，再次参见<a href="https://gitcafe.com/GitCafe/Help/wiki/Pages-%E7%9B%B8%E5%85%B3%E5%B8%AE%E5%8A%A9#wiki" target="_blank" rel="external">官方教程</a>，在在域名管理界面（我的是DNSPod）添加一个CNAME记录时，如果出现无法再添加CNAME的情况，可以添加一个A记录，值为207.226.141.135（应该是gitcafe服务器的地址）。</p>
 <h2 id="修改”_config-yml”">修改”_config.yml”</h2><p>想要直接使用<code>hexo d</code>提交到GitCafe需要修改博客目录下的“_config.yml”，格式如下：</p>
 <pre><code><span class="attribute">deploy</span>:
-  <span class="attribute">type</span>: github
+  <span class="attribute">type</span>: git
   <span class="attribute">repository</span>: git<span class="variable">@gitcafe</span>.<span class="attribute">com</span>:yourname/yourname.git
   <span class="attribute">branch</span>: gitcafe-pages
 </code></pre><h2 id="问题">问题</h2><p>在deploy时遇到了一个问题，显示为<code>error: failed to push some refs to &#39;git@gitcafe.com:shuaiyunzhang/shuaiyunzhang.git&#39;</code>，解决方法为将.deploy-git文件夹删除（在Mac中用命令行删除更为方便）再重新尝试即可。</p>
@@ -56,6 +56,8 @@
     </summary>
     
       <category term="GitCafe" scheme="http://nekonyan.me/tags/GitCafe/"/>
+    
+      <category term="GitHub" scheme="http://nekonyan.me/tags/GitHub/"/>
     
   </entry>
   
