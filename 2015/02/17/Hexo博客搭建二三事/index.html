@@ -1,0 +1,505 @@
+<!doctype html>
+<html class="theme-next use-motion">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="google65db1e6d85524020.html" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0rc1"/>
+
+
+
+
+    <link rel="alternate" href="/atom.xml" title="Nekonyan's秘密基地" type="application/atom+xml" />
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0rc1" />
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39d05a0d6cdd082f9a0da1f7dd8028d6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <title> Hexo博客搭建二三事 // Nekonyan's秘密基地 </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+    <a href="/" class="brand">
+        <span class="logo">
+          <i class="icon-logo"></i>
+        </span>
+        <span class="site-title">Nekonyan's秘密基地</span>
+    </a>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      
+        <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+      
+        </a>
+      </li>
+    
+      
+      
+         
+      <li class="menu-item menu-item-feed">
+        <a href="/atom.xml">
+          <i class="menu-item-icon icon-feed"></i> <br />
+          
+          RSS
+      
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Hexo博客搭建二三事
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+          <span class="post-time">
+            
+              发表于 2015-02-17
+            
+          </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/02/17/Hexo博客搭建二三事/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/17/Hexo博客搭建二三事/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>一直想做些好玩的事了，比如说做个个人网站啥的（虽然做个网站是基础中的基础，没多大技术含量……汗颜），在看到同学捣腾的<a href="http://www.jellybool.com/" target="_blank" rel="external">作品</a>后，心向往之，但由于本人拖延症已到晚期，五月病时不时还要发作一下，迟迟未开始，在深刻认识到技术需要实践这个道理之后，终于动工啦！用《舰队collection》里面的话来说就是“不要怂，单纵就是干”！</p>
+<p>这篇文章主要是对博客搭建过程做个记录，但不会很详细的讲述。以下分为三个方面来做阐述：采用的工具、搭建流程以及遇到的问题。如果这些浅薄的文字能够帮助到遇到同样问题的有缘人，那是我的荣幸。</p>
+<h2 id="采用的工具">采用的工具</h2><ol>
+<li><a href="http://hexo.io/" target="_blank" rel="external">Hexo</a></li>
+<li><a href="https://github.com/" target="_blank" rel="external">Github Pages</a></li>
+<li><a href="http://msysgit.github.io/" target="_blank" rel="external">Git</a>或者<a href="https://windows.github.com/" target="_blank" rel="external">Github for Windows</a></li>
+<li><a href="http://nodejs.org/" target="_blank" rel="external">Node.js</a></li>
+<li><a href="http://duoshuo.com/" target="_blank" rel="external">多说</a></li>
+<li><a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">Next Theme</a></li>
+<li><a href="http://www.qiniu.com/" target="_blank" rel="external">七牛</a></li>
+<li><a href="http://www.sublimetext.com/" target="_blank" rel="external">Sublime Text 3</a></li>
+</ol>
+<a id="more"></a>
+<h3 id="Hexo:">Hexo:</h3><p>Hexo是一款基于nodejs的轻量博客框架。还支持Markdown编辑。使用以及特性点击上面的Hexo链接查看即可，容易上手。我选择Hexo，主要因为nodejs，最近一直在捣腾nodejs，所以想用nodejs通用前后端，做一些好玩的东西（PHP就没多大新意了）在学习了express+nodejs一段时间后，发现要在短时间内用它制作博客，对于我来说还是比较困难的，所以直接动用了Hexo。</p>
+<h3 id="Github_Pages:">Github Pages:</h3><p>这是github免费提供的代码托管服务，好像是有300M的空间，其他的一些参数也都满足个人博客的需求，几乎现在所有IT从业者都有github的账号，怎么使用也就不阐述。不过因为一些“你懂得”的原因，github国内访问比较慢，过段时间会把数据迁移到gitcafe上，看了一些别人的博客，感觉速度很快。</p>
+<h3 id="Git:">Git:</h3><p>使用git的话，需要掌握一些简单的命令操作，不过网上教程蛮多的，照猫画虎就行，用着用着就熟了。另外这里是<a href="http://git-scm.com/book/zh/v1" target="_blank" rel="external">Git官方中文教程</a>，有意者可以戳进去看看。</p>
+<p>这里需要说明一点的是使用Github for Windows客户端也是可以的，而且其界面也是十分的简洁与方便，可以省去很多敲命令的操作，不过从我个人来讲，git熟练之后，效率更高。</p>
+<h3 id="Nodejs:">Nodejs:</h3><p>这里只需要下载安装包，一路戳下去就行，主要是要使用npm工具。</p>
+<h3 id="多说:">多说:</h3><p>因为Hexo是用于布置轻量静态博客的工具，所以评论功能需要引入外部js来实现，虽然Hexo内置了Disqus，但国内的话，还是用国内的产品好一点。</p>
+<h3 id="Next_Theme:">Next Theme:</h3><p>Next是一款Hexo的主题，点击上面的链接进入其github主页，选择它纯粹是个人喜好啦，在接下来的一段时间里会对这个主题进行一些定制，暂时打算多写几套博客主题来加深自己对html5和css3还有jQuery这些基础前端知识的掌握。</p>
+<h3 id="七牛:">七牛:</h3><p>图床用，以后迁移大的静态数据也方便，标准用户免费享用的资源足够个人使用。</p>
+<h3 id="Sublime_Text_3:">Sublime Text 3:</h3><p>这个就不用多说了，轻量文本编辑工具，各种强大的插件与快捷操作，多少让人想到了Vim，Geek范十足！</p>
+<h2 id="搭建过程">搭建过程</h2><h4 id="1-_建立github_pages">1. 建立github pages</h4><p>创建一个格式为username.github.io的repository即可。</p>
+<h4 id="2-_连接github_pages">2. 连接github pages</h4><p>使用git bash shell 创建ssh key，使用该key连接。</p>
+<h4 id="3-_安装Hexo">3. 安装Hexo</h4><p>在bash shell下，用npm安装Hexo，安装主题，修改配置文件，重新generate <code>hexo g</code> 然后 <code>hexo s</code>，打开localhost:4000进行测试。</p>
+<h4 id="4-_购买域名">4. 购买域名</h4><p>国内域名需要备案，比较麻烦，这里使用的是国外的Godaddy（狗爹），最棒的是可以用支付宝付款。</p>
+<h4 id="5-_域名绑定">5. 域名绑定</h4><p>这里使用国内的DNSpod进行DNS解析。在github pages的根目录下，直接创建一个无后缀的文件CNAME，直接编辑它的内容为你购买的域名，不需要前面的协议部分（像http或者https）,这样就完成绑定了</p>
+<h4 id="6-_部署">6. 部署</h4><p>在按照自己的想法修改本地文件后，重新生成 <code>hexo g</code>，再执行 <code>hexo d</code> （之前要在配置文件对部署这一项修改好）即可部署到github，再在浏览器地址栏输入购买的域名就可以访问了。</p>
+<p>这里需要注意一点的是，每次修改完本地文件后，最好是先执行 <code>hexo clean</code> 命令，然后 <code>hexo g</code> 生成静态文件，再在本地预览 <code>hexo s</code> ，发现符合效果后再进行部署。因为本人遇到过 <code>hexo new postName</code>，实际页面出现两个post的情况，采用上面的方法可以避免出现这个问题。</p>
+<h2 id="遇到的问题">遇到的问题</h2><ol>
+<li><p>在建立github pages时，要注意这里的username不是昵称，如果要修改username的话，步骤为 <strong>Settings-&gt;Account Settings-&gt;Change username</strong> 。此外网上有些教程后缀为.com，但应该现在的github pages应该都转到了.io，所以使用.io更好。</p>
+</li>
+<li><p>连接github时，网上虽然有很多教程，但有的根本没用！！！会出现怎么都连不上的情况。下面的参考资料中的方法亲测可用。另外使用github for windows就可以免去这一繁琐的步骤，因为它会自动生成key。</p>
+</li>
+<li><p>购买域名时，如果没多少钱的话，可以去网上搜这个时间段的Godaddy的优惠码，我注册时，貌似有优惠。不过这里我很想吐槽了，为什么提交时有左右两个按钮，我照着以前的教程貌似点了左边那个，是不是这样就没有优惠了？希望知道的人知会我一下，先谢过了。另外个人网站域名可以选择.com或者.me，网上有人说不要选择.info，因为一些黑历史，该域名被Google惩罚了。用支付宝支付时，一定要注意的是，款项单位不要用人民币（CNY），用默认的美元（USD）就行，不然会出现无法支付的问题。</p>
+</li>
+<li><p>最开始我是不知道怎么部署的，下面参考资料介绍的配置方法可行。</p>
+</li>
+<li><p>有的主题中的一些文件会使用google提供的js文件、字体或者样式，还是因为一些“你懂得”的原因，会导致加载很慢，甚至样式出现不了。推荐将其替换为国内的CDN服务，比如百度CDN公共库。</p>
+</li>
+</ol>
+<h2 id="参考资料">参考资料</h2><ol>
+<li><a href="http://www.jianshu.com/p/05289a4bc8b2" target="_blank" rel="external">http://www.jianshu.com/p/05289a4bc8b2</a></li>
+<li><a href="http://www.tuicool.com/articles/uE7FJba" target="_blank" rel="external">http://www.tuicool.com/articles/uE7FJba</a></li>
+</ol>
+
+        
+
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Hexo/">
+                #Hexo
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    
+      <div class="comments" id="comments">
+        <div class="ds-thread" data-thread-key="2015/02/17/Hexo博客搭建二三事/"
+             data-title="Hexo博客搭建二三事" data-url="http://nekonyan.me/2015/02/17/Hexo博客搭建二三事/">
+        </div>
+      </div>
+    
+  
+
+          </div>
+
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">nekonyan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+</div>
+
+
+
+  <div class="cc-license">
+    <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+      <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+    </a>
+  </div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/dist/jquery.min.js?v=0.3.0rc1"></script>
+  <script src="/vendors/jquery/dist/forkme-1.0.js"></script>
+
+  <script type="text/javascript">
+      //渲染forkme
+      //第一个参数是显示的文本
+      //第二个参数是链接地址
+      $(document).ready(function(){
+        $("body").forkme("View Forkme","https://github.com/shuaiyunzhang");
+      });
+  </script>
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var body = $('body');
+      var isSidebarVisible = false;
+      var sidebarToggle = $('.sidebar-toggle');
+      var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+      var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+      var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+      var sidebar = $('.sidebar');
+
+      var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+      var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+      var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+      var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+      var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+      var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+      var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+      sidebatToggleMotion();
+      postsListMotion();
+      backToTopMotion();
+
+      function sidebarContentMotion () {
+        $('.sidebar .motion-element').velocity(
+          'transition.slideRightIn',
+          {stagger: 50, drag: true}
+        );
+      }
+
+
+      function backToTopMotion () {
+        var b2top = $('.back-to-top');
+        b2top.on('click', function () {
+          body.velocity('scroll');
+        });
+      }
+
+      function sidebarShowMotion () {
+        var sidebarDisplayDuration = 300;
+        var sidebarWidth = '320px';
+
+        sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+        sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+        sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+        sidebar.velocity({width: sidebarWidth}, sidebarDisplayDuration);
+        isDesktop() && body.velocity({paddingRight: sidebarWidth}, sidebarDisplayDuration);
+        sidebarContentMotion();
+      }
+
+      function sidebarHideMotion () {
+        isDesktop() && body.velocity({paddingRight: 0});
+        sidebar.velocity('reverse');
+
+        sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+      };
+
+      function postsListMotion () {
+        $('.post').velocity('transition.slideDownIn', {stagger: 300, drag: true});
+      }
+
+      function sidebatToggleMotion () {
+        sidebarToggle.on('click', function () {
+          isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+          isSidebarVisible = !isSidebarVisible;
+        });
+        sidebarToggle.hover(function () {
+          if (isSidebarVisible) {return}
+          sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+          sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+          sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+        }, function () {
+          if (isSidebarVisible) {return}
+          sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+          sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+          sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+        });
+      }
+
+      function isDesktop () {
+        return screen.width > 991;
+      }
+
+      function isTablet () {
+        return screen.width < 992 && screen.width > 767;
+      }
+
+      function isMobile () {
+        return screen.width < 767;
+      }
+    });
+  </script>
+
+  
+
+  
+  
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var html = $('html');
+
+        $('.sidebar-nav li').on('click', function () {
+          var item = $(this);
+          var activeTabClassName = 'sidebar-nav-active';
+          var activePanelClassName = 'sidebar-panel-active';
+          if (item.hasClass(activeTabClassName)) {
+            return;
+          }
+
+          var currentTarget = $('.' + activePanelClassName);
+          var target = $('.' + item.data('target'));
+
+          $.Velocity
+            .animate(currentTarget, 'transition.slideUpOut', 200)
+            .then(function () {
+              target
+              .velocity('stop')
+              .velocity('transition.slideDownIn', 200)
+              .addClass(activePanelClassName);
+            });
+
+          item.siblings().removeClass(activeTabClassName);
+          item.addClass(activeTabClassName);
+        });
+
+        $('.post-toc a').on('click', function (e) {
+          e.preventDefault();
+          var offset = $(this.getAttribute('href')).offset().top;
+          html.velocity('stop').velocity('scroll', {
+            offset: offset  + 'px',
+            mobileHA: false
+          });
+        });
+      });
+    </script>
+  
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nekonyan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+  <script type="text/javascript">
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-59831850-1');ga('send','pageview');
+  </script>
+
+</body>
+</html>
