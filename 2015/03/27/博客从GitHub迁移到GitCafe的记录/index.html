@@ -189,7 +189,8 @@
   <span class="attribute">type</span>: github
   <span class="attribute">repository</span>: git<span class="variable">@gitcafe</span>.<span class="attribute">com</span>:yourname/yourname.git
   <span class="attribute">branch</span>: gitcafe-pages
-</code></pre><h2 id="其他">其他</h2><p>如果想再同步到GitHub只需要切换分支即可，进入到“.deploy-git”目录执行以下命令，切换git工作分支为master：<br><code>git checkout master</code></p>
+</code></pre><h2 id="问题">问题</h2><p>在deploy时遇到了一个问题，显示为<code>error: failed to push some refs to &#39;git@gitcafe.com:shuaiyunzhang/shuaiyunzhang.git&#39;</code>，解决方法为将.deploy-git文件夹删除（在Mac中用命令行删除更为方便）再重新尝试即可。</p>
+<h2 id="其他">其他</h2><p>如果想再同步到GitHub只需要切换分支即可，进入到“.deploy-git”目录执行以下命令，切换git工作分支为master：<br><code>git checkout master</code></p>
 <p>然后就直接像之前使用hexo一样即可,<code>hexo d</code>可以直接提交到github。如果再想提交到gitcafe直接再切换回gitcafe-pages分支即可。可以使用以下命令查看当前工作分支：<br><code>git branch</code><br>不过在网上找资料时貌似还可以同时同步两个，这点暂时放下，以后有时间再去研究。</p>
 
         
@@ -202,8 +203,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/GitHub-GitCafe/">
-                #GitHub GitCafe
+              <a href="/tags/GitCafe/">
+                #GitCafe
               </a>
             
           </div>
