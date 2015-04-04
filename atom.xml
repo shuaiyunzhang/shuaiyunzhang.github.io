@@ -3,9 +3,9 @@
   <title><![CDATA[Nekonyan's秘密基地]]></title>
   
   <link href="/atom.xml" rel="self"/>
-  <link href="http://nekonyan.me/"/>
+  <link href="https://nekonyan.me/"/>
   <updated>2015-03-27T14:11:43.000Z</updated>
-  <id>http://nekonyan.me/</id>
+  <id>https://nekonyan.me/</id>
   
   <author>
     <name><![CDATA[nekonyan]]></name>
@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[博客从GitHub迁移到GitCafe的记录]]></title>
-    <link href="http://nekonyan.me/2015/03/27/%E5%8D%9A%E5%AE%A2%E4%BB%8EGitHub%E8%BF%81%E7%A7%BB%E5%88%B0GitCafe%E7%9A%84%E8%AE%B0%E5%BD%95/"/>
-    <id>http://nekonyan.me/2015/03/27/博客从GitHub迁移到GitCafe的记录/</id>
+    <link href="https://nekonyan.me/2015/03/27/%E5%8D%9A%E5%AE%A2%E4%BB%8EGitHub%E8%BF%81%E7%A7%BB%E5%88%B0GitCafe%E7%9A%84%E8%AE%B0%E5%BD%95/"/>
+    <id>https://nekonyan.me/2015/03/27/博客从GitHub迁移到GitCafe的记录/</id>
     <published>2015-03-27T09:32:05.000Z</published>
     <updated>2015-03-27T14:11:43.000Z</updated>
     <content type="html"><![CDATA[<p>有时候GitHub的确很难打开（就比如今天下午一些时候），相应的托管在上面的博客访问速度也受到了影响。以前看到过别人将博客托管在GitCafe上，当时的访问速度让我眼前一亮，十分流畅。因此，时隔这么久之后，我决定将Hexo博客迁移到GitCafe上，也算是做个备份。本篇文章主要是对托管在GitHub上的Hexo博客迁移到GitCafe过程的记录，也算是我开始认真写博客的开始。</p>
@@ -55,16 +55,16 @@
     
     </summary>
     
-      <category term="GitCafe" scheme="http://nekonyan.me/tags/GitCafe/"/>
+      <category term="GitCafe" scheme="https://nekonyan.me/tags/GitCafe/"/>
     
-      <category term="GitHub" scheme="http://nekonyan.me/tags/GitHub/"/>
+      <category term="GitHub" scheme="https://nekonyan.me/tags/GitHub/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Hexo博客搭建二三事]]></title>
-    <link href="http://nekonyan.me/2015/02/17/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%BA%8C%E4%B8%89%E4%BA%8B/"/>
-    <id>http://nekonyan.me/2015/02/17/Hexo博客搭建二三事/</id>
+    <link href="https://nekonyan.me/2015/02/17/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E4%BA%8C%E4%B8%89%E4%BA%8B/"/>
+    <id>https://nekonyan.me/2015/02/17/Hexo博客搭建二三事/</id>
     <published>2015-02-17T03:03:38.000Z</published>
     <updated>2015-02-17T11:51:32.000Z</updated>
     <content type="html"><![CDATA[<p>一直想做些好玩的事了，比如说做个个人网站啥的（虽然做个网站是基础中的基础，没多大技术含量……汗颜），在看到同学捣腾的<a href="http://www.jellybool.com/" target="_blank" rel="external">作品</a>后，心向往之，但由于本人拖延症已到晚期，五月病时不时还要发作一下，迟迟未开始，在深刻认识到技术需要实践这个道理之后，终于动工啦！用《舰队collection》里面的话来说就是“不要怂，单纵就是干”！</p>
@@ -129,7 +129,7 @@
     
     </summary>
     
-      <category term="Hexo" scheme="http://nekonyan.me/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://nekonyan.me/tags/Hexo/"/>
     
   </entry>
   
