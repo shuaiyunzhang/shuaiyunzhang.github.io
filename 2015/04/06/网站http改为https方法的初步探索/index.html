@@ -1,0 +1,529 @@
+<!doctype html>
+<html class="theme-next use-motion">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="google65db1e6d85524020.html" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0rc1"/>
+
+
+
+
+    <link rel="alternate" href="/atom.xml" title="Nekonyan's秘密基地" type="application/atom+xml" />
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0rc1" />
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39d05a0d6cdd082f9a0da1f7dd8028d6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <title> 网站http改为https方法的初步探索 // Nekonyan's秘密基地 </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+    <a href="/" class="brand">
+        <span class="logo">
+          <i class="icon-logo"></i>
+        </span>
+        <span class="site-title">Nekonyan's秘密基地</span>
+    </a>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      
+        <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-about">
+        <a href="/about/">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-archives">
+        <a href="/archives/">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-tags">
+        <a href="/tags/">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+      
+        </a>
+      </li>
+    
+      
+      
+         
+      <li class="menu-item menu-item-feed">
+        <a href="/atom.xml">
+          <i class="menu-item-icon icon-feed"></i> <br />
+          
+          RSS
+      
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              网站http改为https方法的初步探索
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+          <span class="post-time">
+            
+              发表于 2015-04-06
+            
+          </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/04/06/网站http改为https方法的初步探索/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/06/网站http改为https方法的初步探索/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>这一两年来，信息安全越来越受关注，前不久百度也宣布全站https（不过在网上查到一些消息说，以前百度对https貌似不是很友好），https使得网络上的通讯变得更为安全，当然，没有完美的事物，https也存在被劫持的问题，此外，谷歌曾经也发布公告说会对采用https的网站优先排名。总的来说，使用https是大势所趋。</p>
+<p>作为一个关注前沿信息技术的伪极客，我开始关注起https来，了解了很多关于https技术的信息，也琢磨着能不能将我的博客访问从http改为https，为此，我开始在网上疯狂找东西，最终的结果还是有的，只是让人很不满意，最后的结果是如果直接在URL上直接输入<a href="https://nekonyan.me" target="_blank" rel="external">https://nekonyan.me</a> ，就会发现：</p>
+<a id="more"></a>
+<ol>
+<li><p>会出现内容，至少说明ssl certificate是可用的（一般的网站直接将url改为https是找不到网页的），只不过样式并没有加载（可能是mixed content中链接的原因，但不确定）</p>
+</li>
+<li><p>点击其中的链接，根据浏览器的提示，链接全部变为<a href="https://nekonyan.me/xxx" target="_blank" rel="external">https://nekonyan.me/xxx</a> ，但点击进去，全部没内容，但如果你在此时的URL上加上一个正斜杠，内容又有了，当然还是没有样式（可能是网页代码托管服务器的处理URL问题，但不确定）</p>
+</li>
+<li><p>第2点的解决方法并不是万无一失，点击任意一个具体的标签就会发现就算在URL的最后加上正斜杠也是没有内容的（这个想不到可能的原因）</p>
+</li>
+<li><p>当然，文章和RSS的链接是直接可以点击的，不需要加斜杠（从浏览器提示来说这些链接最后）</p>
+</li>
+<li><p>使用https，网页加载变得极为缓慢，不过这个原因好猜，应该使用了国外cloudflare的缘故</p>
+</li>
+<li><p>https页面刷新就显示不了内容了，这是最让我受不了的一点，按照理论来说，https和http网站直观的使用感受是一样的，http怎样表现，https也怎么表现，可我这里事与愿违（想不到原因）</p>
+</li>
+<li><p>最后一点是使用https后，我chrome（目前最新版）能够显示，但FireFox、Safari还有虚拟机中的IE11无法打开，国内一众浏览器貌似也能打开，虽然cloudflare官方回复是说有浏览器和操作系统限制（链接），但我这里又不是老掉牙的浏览器和操作系统，按理来说不会出现问题呀（无法确定原因）</p>
+</li>
+</ol>
+<p>很幸运的是如果是通过http来访问还是很流畅，并没有影响什么。你可能会问现在改URL为什么也是显示找不到内容，具体原因在第五部分第二小点进行阐述。虽然效果并不是很好，但我还是想把我的过程写出来，毕竟只是初步探索，如果谁发现了有更好的方法请一定告诉我！！！</p>
+<h2 id="一、什么是HTTPS">一、什么是HTTPS</h2><p>https是http运行在SSL之上（over），SSL运行在TCP之上（over），我的理解就是https比http多了一层协议进行加密，不过也不能简单的理解为https＝http＋ssl，因为毕竟https是应用层协议（默认端口为443），只能理解为https的构成结构为http＋ssl，相应的因为多了一层加密协议，会花费更多的时间。</p>
+<p>https最核心的应该是ssl证书，通过该证书浏览器可以验证网站的身份，保证和网站信息传递的安全性，也可以防止信息泄漏被偷听。</p>
+<p>采用https后，最明显的就是URL前会出现一个锁型小图标，具体什么样子分情况。以下是几种情况：</p>
+<ol>
+<li><p><img src="http://7vzok8.com1.z0.glb.clouddn.com/EVhttps.png" alt="EVhttps"><br>EV SSL（扩展验证型）证书，颁发机构（CA）颁发前会进行更严格的身份审核，并在证书信息中写明组织机构等信息，以此提高证书对用户的可信度。</p>
+</li>
+<li><p><img src="http://7vzok8.com1.z0.glb.clouddn.com/normalhttps.png" alt="normalhttps">普通的SSL证书，只针对域名，不提供详细的所属组织机构信息。</p>
+</li>
+<li><p><img src="http://7vzok8.com1.z0.glb.clouddn.com/mixedhttps.png" alt="mixedhttps">页面中调用了非安全传输的资源（不是https开头），如外链图片或JS文件（mixed content），它们有可能在网络传输中被第三方截取、篡改，从而可能危及整个页面的安全性。</p>
+</li>
+</ol>
+<p>从这里看出ssl证书的权威性是保证https通信安全的关键，而保证ssl证书权威性的机构就是颁发证书的CA，我想这也许就是权威性高的ssl证书价格高的原因吧，毕竟单纯从数学算法角度来说，生成证书是很容易的，在一些服务器环境就是几个命令的问题，但这种证书对于那些对安全敏感的公司机构肯定是不够的，购买权威CA颁发的证书更安全，这些证书也得到了个大浏览器厂商的认证。下面这张图最能说明各个组成的关系：<br><img src="http://7vzok8.com1.z0.glb.clouddn.com/https.png" alt="https"></p>
+<h2 id="二、一般情况改为HTTPS的方法">二、一般情况改为HTTPS的方法</h2><p>这里指的是服务器环境或者可以操作服务器环境的网站的改为https方法，由于我的博客只是静态资源托管在gitcafe，所以对于这一点，我并没有仔细去研究。不过从看的资料来说，过程大致是购买具有公信力的证书，对服务器进行配置，基本不关客户端的事，如果感觉那些高大上机构的证书贵，可以去买便宜的，甚至是免费的ssl证书，不过各种风险肯定是有的。</p>
+<h2 id="三、网站是否有必要改为HTTPS">三、网站是否有必要改为HTTPS</h2><p>关于这个问题其实也很简单，看需求，脱离了实际情况来讨论问题就是耍流氓！对于重视用户安全隐私的网站使用https还是很有必要的，比如说银行（虽然国内还比较少），在线支付平台（支付宝），等等，另外新兴的技术论坛社区也蛮喜欢用https的，可能里面用户隐私、和谐的东西比较多吧。。。，而向新闻、视频网站相对来说，https就不是那么重要了，同理，其实个人博客也不是那么需要，我仅仅是探索性质的尝试。我分享一篇外国人的博客：<a href="http://nickcraver.com/blog/2013/04/23/stackoverflow-com-the-road-to-ssl/" target="_blank" rel="external">Stackoverflow.com: the road to SSL</a>，里面以StackOverflow为例，对采用HTTPS进行了讨论，有启发价值。</p>
+<h2 id="四、不同ssl服务的选择">四、不同ssl服务的选择</h2><p>前面说过ssl证书很重要，因此这里主要ssl服务主要是指CA的选择，高大上的有verisign、globalsign，特别是verisign在银行业务方面应用广泛，不过，个人的使用没必要用到这些（也用不起。。。），所以这里讲的主要是相对实惠甚至免费的ssl证书，我了解到的主要实惠的有PositiveSSL/EssentialSSL/RapidSSL三种，</p>
+<ol>
+<li>PositiveSSL 是 GeoTrust 的低端品牌 </li>
+<li>EssentialSSL 是 Comodo 的</li>
+<li>RapidSSL 是 Twate 的</li>
+</ol>
+<p>GeoTrust、Twate、Comodo三者均是较早的SSL数字签名服务商, 被信任比率彼此相当，作为他们的中间证书，受信任的比率与根证书基本上一致的。GeoTrust 和 Twate 均被 Verisign 收购，并入了 现在的Symantec公司。</p>
+<p>虽然说是相对实惠，但每年也是几百块钱RMB啊，作为学生党，感觉划不来，最重要的是他们貌似都需要网站服务器支持ssl，我的博客原来是托管在github pages上的，现在转到了gitcafe pages，仅仅只是一个托管平台，根本不可能对服务器进行操作，另外我抱着尝试着的心态去了解了Github Pages的信息，发现它是不支持https的，在Gitcafe上询问工作人员结果也是不支持，所以基本上断了这条路。而免费的ssl证书像startssl，还有域名注册机构赠送的ssl证书也是差不多的问题，而且像startssl这些还时不时被Q掉，情况真的很糟糕。</p>
+<p>我意识到我必须通过一个中介来实现https，通过询问网上认识一些牛人，别人很随意的指点了cloudflare这条路，使用它的Flexible SSL Mode，这可忙坏我了，因为这完全是新东西，以前要研究东西，网上很多人已经做了，有了大量的资料还是中文，但这次不同，很少有人通过这种方法为托管平台实现HTTPS，有资料还是简单的英文资料，遇到了问题只能看官方介绍文档和社区的解答，虽然过程比较苦逼，但我发现这条路是可行的，我了解到ssl证书是和网站IP绑定的，也就是ssl证书与网站一一对应，但cloudflare并没有给每个使用它们服务的用户分配ssl证书，它的证书貌似是Comodo的，原理是用户访问网站时会经过他们的服务器来实现https，<a href="https://blog.cloudflare.com/introducing-universal-ssl/" target="_blank" rel="external">具体介绍</a>，下面是他们提供的三种模式：<br><img src="http://7vzok8.com1.z0.glb.clouddn.com/ssl.png" alt="CF SSL Mode"></p>
+<p>理解是服务器没开ssl就选择第一种（Flexible），如果你是自签的证书就选第二种（Full），你买了证书就选第三种（Full strict）。很明显，我这种情况只适合Flexible Mode，不过就像给我指导的那个人所说，这个只是看起来实现了https，的确，这种方法并没有全程使用ssl，只是在用户和cloudflare那一段使用了ssl，不过对于我探索来说，已经够了。另外cloudflare会在2015年进入国内，所以不用担心被Q的问题了。</p>
+<h2 id="五、个人博客改为https的方法">五、个人博客改为https的方法</h2><ol>
+<li>注册cloudflare账号。</li>
+</ol>
+<p>按照指示，注册账号，它会有几个步骤，在其中的一步她会给出两个nameserver地址。</p>
+<ol>
+<li>修改nameserver。</li>
+</ol>
+<p>它会要求你去当初域名注册的机构修改nameserver地址，拿我自己作比方，我是在godaddy注册域名的(如果实在不知道可以使用whois来查询)，是用DNSpod做dns解析，当初需要将godaddy的nameserver改为dnspod提供的nameserver，现在需要将那个nameserver改为cloudflare提供的nameserver，当然很多人不愿意修改，在V2EX上看到一种解决办法那就是将nameserver改为CF的后，等到显示https可用（将URL改为https，不断刷新，显示出页面就说明已激活，官方说时间是最多24小时，但我的激活时间应该是十多分钟），就将nameserver改回来，再在提供dns解析网站设置一条A或者NS记录，指向CloudFlare提供的某个nameserver地址。这可行吗？结论是不可行，所以现在我的博客无法通过https访问，CF的官方回答大意是它会隔一段时间检测nameserver值，发现改动则不提供ssl服务。那为什么不就用CF的nameserver呢？原因同样简单：慢！</p>
+<ol>
+<li>修改Page Rules</li>
+</ol>
+<p>激活后，进入dashboard，点击设置，弹出的选项中会有一个page rules，点击进入page rules页面，这个页面关键有几点，一是需要写pattern，pattern的意思是下面各种规则的匹配对象，直接写域名就行，也可以加上http:// 或者www子域名，另外可以使用*来匹配，如<a href="http://nekonyan.me" target="_blank" rel="external">http://nekonyan.me</a> ；二是要想一直使用https，请选择always uses https，这样整个网站都会使用https，如果不这样就会在网站中点击站内链接时又变为http；三就是在下面的SSL规则中选择Flexible SSL，千万别选错，不然也会没法访问。最后就是add rule了。一般过个几分钟，规则就会生效。其他规则可自行摸索。</p>
+<p>如果还有什么问题的话，可以去CloudFlare的<a href="https://support.cloudflare.com/hc/en-us" target="_blank" rel="external">支持板块</a>寻找帮助</p>
+<p>参考资料：<br>1、<a href="https://www.benburwell.com/posts/configuring-cloudflare-universal-ssl/" target="_blank" rel="external">https://www.benburwell.com/posts/configuring-cloudflare-universal-ssl/</a></p>
+<p>2、<a href="https://icloud.net/blog/86/how-to-enable-ssl-conection-with-cloudflare-for-free-plan-users/" target="_blank" rel="external">https://icloud.net/blog/86/how-to-enable-ssl-conection-with-cloudflare-for-free-plan-users/</a></p>
+<p>3、<a href="https://support.cloudflare.com/hc/en-us/articles/200168306-Is-there-a-tutorial-for-Page-Rules-" target="_blank" rel="external">https://support.cloudflare.com/hc/en-us/articles/200168306-Is-there-a-tutorial-for-Page-Rules-</a></p>
+<h2 id="六、总结">六、总结</h2><p>总的来说，我通过CloudFlare的Flexible SSL Mode实现了https，但效果不是很理想，而且最后因为被CF检测到nameserver变动的原因导致SSL服务被禁用。而对于Flexible SSL Mode本身而言，其实算不得上真正的https，毕竟只有一段进行了SSL加密，不过这次探索还是很有意义的，使我对http改为https的方法过程有了一个粗浅的了解。日后有时间的话，肯定会对这一块重新进行探索，解决当初遇到的问题。</p>
+
+        
+
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/CloudFlare/">
+                #CloudFlare
+              </a>
+            
+              <a href="/tags/HTTPS/">
+                #HTTPS
+              </a>
+            
+              <a href="/tags/SSL/">
+                #SSL
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    
+      <div class="comments" id="comments">
+        <div class="ds-thread" data-thread-key="2015/04/06/网站http改为https方法的初步探索/"
+             data-title="网站http改为https方法的初步探索" data-url="https://nekonyan.me/2015/04/06/网站http改为https方法的初步探索/">
+        </div>
+      </div>
+    
+  
+
+          </div>
+
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">nekonyan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+</div>
+
+
+
+  <div class="cc-license">
+    <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+      <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+    </a>
+  </div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/dist/jquery.min.js?v=0.3.0rc1"></script>
+  <script src="/vendors/jquery/dist/forkme-1.0.js"></script>
+
+  <script type="text/javascript">
+      //渲染forkme
+      //第一个参数是显示的文本
+      //第二个参数是链接地址
+      $(document).ready(function(){
+        $("body").forkme("View Forkme","https://github.com/shuaiyunzhang");
+      });
+  </script>
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var body = $('body');
+      var isSidebarVisible = false;
+      var sidebarToggle = $('.sidebar-toggle');
+      var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+      var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+      var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+      var sidebar = $('.sidebar');
+
+      var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+      var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+      var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+      var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+      var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+      var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+      var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+      sidebatToggleMotion();
+      postsListMotion();
+      backToTopMotion();
+
+      function sidebarContentMotion () {
+        $('.sidebar .motion-element').velocity(
+          'transition.slideRightIn',
+          {stagger: 50, drag: true}
+        );
+      }
+
+
+      function backToTopMotion () {
+        var b2top = $('.back-to-top');
+        b2top.on('click', function () {
+          body.velocity('scroll');
+        });
+      }
+
+      function sidebarShowMotion () {
+        var sidebarDisplayDuration = 300;
+        var sidebarWidth = '320px';
+
+        sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+        sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+        sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+        sidebar.velocity({width: sidebarWidth}, sidebarDisplayDuration);
+        isDesktop() && body.velocity({paddingRight: sidebarWidth}, sidebarDisplayDuration);
+        sidebarContentMotion();
+      }
+
+      function sidebarHideMotion () {
+        isDesktop() && body.velocity({paddingRight: 0});
+        sidebar.velocity('reverse');
+
+        sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+      };
+
+      function postsListMotion () {
+        $('.post').velocity('transition.slideDownIn', {stagger: 300, drag: true});
+      }
+
+      function sidebatToggleMotion () {
+        sidebarToggle.on('click', function () {
+          isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+          isSidebarVisible = !isSidebarVisible;
+        });
+        sidebarToggle.hover(function () {
+          if (isSidebarVisible) {return}
+          sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+          sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+          sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+        }, function () {
+          if (isSidebarVisible) {return}
+          sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+          sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+          sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+        });
+      }
+
+      function isDesktop () {
+        return screen.width > 991;
+      }
+
+      function isTablet () {
+        return screen.width < 992 && screen.width > 767;
+      }
+
+      function isMobile () {
+        return screen.width < 767;
+      }
+    });
+  </script>
+
+  
+
+  
+  
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var html = $('html');
+
+        $('.sidebar-nav li').on('click', function () {
+          var item = $(this);
+          var activeTabClassName = 'sidebar-nav-active';
+          var activePanelClassName = 'sidebar-panel-active';
+          if (item.hasClass(activeTabClassName)) {
+            return;
+          }
+
+          var currentTarget = $('.' + activePanelClassName);
+          var target = $('.' + item.data('target'));
+
+          $.Velocity
+            .animate(currentTarget, 'transition.slideUpOut', 200)
+            .then(function () {
+              target
+              .velocity('stop')
+              .velocity('transition.slideDownIn', 200)
+              .addClass(activePanelClassName);
+            });
+
+          item.siblings().removeClass(activeTabClassName);
+          item.addClass(activeTabClassName);
+        });
+
+        $('.post-toc a').on('click', function (e) {
+          e.preventDefault();
+          var offset = $(this.getAttribute('href')).offset().top;
+          html.velocity('stop').velocity('scroll', {
+            offset: offset  + 'px',
+            mobileHA: false
+          });
+        });
+      });
+    </script>
+  
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nekonyan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+  <script type="text/javascript">
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-59831850-1');ga('send','pageview');
+  </script>
+
+</body>
+</html>
