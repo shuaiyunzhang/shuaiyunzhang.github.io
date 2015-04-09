@@ -38,11 +38,11 @@
     })();
   </script>
 
-  <title> 归档 // Nekonyan's秘密基地 </title>
+  <title> 前端学习之HTML5 // Nekonyan's秘密基地 </title>
 </head>
 
 <body>
-  <div class="container one-column  page-archive ">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -124,34 +124,9 @@
             
           
 
-          <div id="posts" class="posts-collapse">
+          <div id="posts" class="posts-expand">
             
-
-  <span class="archive-move-on"></span>
-
-  <span class="archive-page-counter">
-    
-    
-     
-    
-    嗯..! 目前共计 4 个日志。 继续努力。
-  </span>
-
   
-
-    
-    
-    
-
-    
-      
-      <div class="collection-title">
-        <h2 class="archive-year motion-element" id="archive-year-2015">2015</h2>
-      </div>
-    
-    
-
-    
 
   <div class="post post-type-normal ">
     <div class="post-header">
@@ -162,9 +137,7 @@
           
           
             
-              <a class="post-title-link" href="/2015/02/17/Hexo博客搭建二三事/">
-                Hexo博客搭建二三事
-              </a>
+              前端学习之HTML5
             
           
         </h1>
@@ -173,15 +146,15 @@
       <div class="post-meta">
           <span class="post-time">
             
-              02-17
+              发表于 2015-04-09
             
           </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/02/17/Hexo博客搭建二三事/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/17/Hexo博客搭建二三事/"></span>
+            <a href="/2015/04/09/前端学习之HTML5/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/09/前端学习之HTML5/"></span>
             </a>
           </span>
           
@@ -190,12 +163,84 @@
     </div>
 
     
+      <div class="post-body">
 
+        
+        
+
+        
+          <h2 id="一、初识html5（一）">一、初识html5（一）</h2><h3 id="1、究竟什么是html5？">1、究竟什么是html5？</h3><p>认识一个新事物（虽然算起来html5也不小了。。。）首先需要搞清楚它的定义，对于我们来说，最常用的方式应该就是把关键词丢到搜索引擎去搜，很多相关网站给出的解释是：</p>
+<blockquote>
+<p>“HTML5 是下一代的 HTML”</p>
+</blockquote>
+<a id="more"></a>
+<p>虽然初看上去很简洁明了，但对于我来说，当初可是造成了很大的困扰。因为HTML长期给人的一种印象是简单的标记语言，连编程语言都算不上，但现实中遇到的一些实际应用比如离线存储啥的明显就不应该是传统html的内容啊。直到看到MDN的<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5" target="_blank" rel="external">一篇文章</a>才理清了我的思绪，给了我一个全面的html5认识。那就是这句话：</p>
+<blockquote>
+<p>HTML5 is the latest evolution of the standard that defines HTML. The term represents two different concepts:<br>1、It is a new version of the language HTML, with new elements, attributes, and behaviors,<br>2、and a larger set of <strong>technologies</strong> that allows more diverse and powerful Web sites and applications. This set is sometimes called HTML5 &amp; friendsand often shortened to just HTML5.</p>
+</blockquote>
+<p>我的理解为HTML5是HTML这门语言最新演进版，但它涵盖两个方面，其一就是传统意义上的HTML语言版本演进，这是我以前对于html5的认识，比如增加了新的语义元素等，其二也是最重要的一方面，一系列的新兴web技术也被归到HTML5里面，在看《JavaScript高级程序设计》这本书时，我了解到这里面新兴的技术很多是一些新的JS API和规范。换句话说，HTML5极大的不同于以前的HTML，关于JS涉及了很多。</p>
+<p>总的一句话就是，HTML5不仅仅是HTML版本的迭代，更是一系列新技术规范。</p>
+<p>我对于html5的学习也将大致从这两个方向出发，不过很明显，技术规范这一部分的内容会很多。</p>
+<h4 id="1-1、逸事——HTML5还是HTML_5？">1.1、逸事——HTML5还是HTML 5？</h4><p>最初接触时，真没有发现这两者有什么不同，以为只是印刷或者一种书写习惯罢了。有意思的事，后来发现这两者还是有很细微的区别的。</p>
+<p>众所周知，一些浏览器厂商不满W3C，于是成立了WHATWG，初期这个组织算是推进HTML5标准制定的主要动力，在认识到新标准大势所趋之后，W3C基于WHATWG的成果推进新标准，但名字变成了HTML 5，多了一个空格。</p>
+<p>来源：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5/Introduction_to_HTML5" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5/Introduction_to_HTML5</a></p>
+<h3 id="2、html5的具体内容">2、html5的具体内容</h3><p>要学习html5，需要对html5 的具体内容有一个了解，做到心中有数，由于2014年10月份，W3C正式发布了HTML5的正式推荐标准，相当于html5定稿，因此最全面的内容概述，莫过于W3C的<a href="http://www.w3.org/TR/html5/" target="_blank" rel="external">HTML5推荐标准</a>了</p>
+<h4 id="2-1、对于W3C文档成熟过程的简单理解">2.1、对于W3C文档成熟过程的简单理解</h4><p>关于这部分内容可以直接戳 <a href="http://www.w3.org/2014/Process-20140801/#reports" target="_blank" rel="external">http://www.w3.org/2014/Process-20140801/#reports</a> 但这里面的东西实在太多了，只要掌握了解过程即可，在查询了一些资料后我进行了简化。</p>
+<p>按照W3C的过程文档，一个推荐标准的发展需要通过不同的成熟级别。</p>
+<p>来源：<a href="http://zh.wikipedia.org/wiki/W3C%E6%8E%A8%E8%8D%90%E6%A0%87%E5%87%86" target="_blank" rel="external">http://zh.wikipedia.org/wiki/W3C%E6%8E%A8%E8%8D%90%E6%A0%87%E5%87%86</a></p>
+<ol>
+<li><p>工作草案（WD）——Working Drafts<br>工作草案文档是一个标准的首次公开发表，在这一阶段，标准文档很可能会发生重大的修改</p>
+</li>
+<li><p>候选推荐标准（CR）——Candidate Recommendations<br>候选推荐标准与工作草案相比更加稳定，标准文档还可能发生进一步的修改，但此时重大的特性大部分已经锁定</p>
+</li>
+<li><p>提案（建议）推荐标准（PR）——Proposed Recommendations<br>在这一阶段，标准文档已经提交到W3C顾问委员会进行最后的批准，这一阶段很少导致对标准的任何重要的修改</p>
+</li>
+<li><p>W3C推荐标准（REC）——Recommendations<br>最成熟的发展阶段，可以广泛应用</p>
+</li>
+<li><p>后续的修订<br>推荐标准通过分别发布的勘误表来更新，当积累到足够的实质上的修订，会发布推荐标准的一个新版本</p>
+</li>
+</ol>
+<p>附一张<a href="http://www.infoq.com/cn/news/2012/03/w3c-adviser-on-HTML5" target="_blank" rel="external">InfoQ</a>上找到的图，图中用实线和虚线分别画出了工作流程，而且多了一个最终工作草案，不过和前文的文字描述也大同小异，另外这篇文章也蛮值得一看的，虽然时间有点久了。<br><img src="http://7vzok8.com1.z0.glb.clouddn.com/w3c process zh.jpg" alt="w3c process"></p>
+<h4 id="2-2、HTML5中的新语义标签">2.2、HTML5中的新语义标签</h4><p><em>待更新</em></p>
+
+        
+
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/FE/">
+                #FE
+              </a>
+            
+              <a href="/tags/HTML5/">
+                #HTML5
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+      </div>
     
   </div>
 
 
 
+  
+    
+      <div class="comments" id="comments">
+        <div class="ds-thread" data-thread-key="2015/04/09/前端学习之HTML5/"
+             data-title="前端学习之HTML5" data-url="https://nekonyan.me/2015/04/09/前端学习之HTML5/">
+        </div>
+      </div>
+    
   
 
           </div>
@@ -378,7 +423,42 @@
   
   
     <script type="text/javascript">
-      $('.archive-year').velocity('transition.slideLeftIn');
+      $(document).ready(function () {
+        var html = $('html');
+
+        $('.sidebar-nav li').on('click', function () {
+          var item = $(this);
+          var activeTabClassName = 'sidebar-nav-active';
+          var activePanelClassName = 'sidebar-panel-active';
+          if (item.hasClass(activeTabClassName)) {
+            return;
+          }
+
+          var currentTarget = $('.' + activePanelClassName);
+          var target = $('.' + item.data('target'));
+
+          $.Velocity
+            .animate(currentTarget, 'transition.slideUpOut', 200)
+            .then(function () {
+              target
+              .velocity('stop')
+              .velocity('transition.slideDownIn', 200)
+              .addClass(activePanelClassName);
+            });
+
+          item.siblings().removeClass(activeTabClassName);
+          item.addClass(activeTabClassName);
+        });
+
+        $('.post-toc a').on('click', function (e) {
+          e.preventDefault();
+          var offset = $(this.getAttribute('href')).offset().top;
+          html.velocity('stop').velocity('scroll', {
+            offset: offset  + 'px',
+            mobileHA: false
+          });
+        });
+      });
     </script>
   
 
