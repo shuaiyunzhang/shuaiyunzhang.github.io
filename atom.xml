@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="https://nekonyan.me/"/>
-  <updated>2015-05-04T17:05:54.000Z</updated>
+  <updated>2015-05-14T14:35:10.000Z</updated>
   <id>https://nekonyan.me/</id>
   
   <author>
@@ -13,6 +13,93 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[BFC的初步探索]]></title>
+    <link href="https://nekonyan.me/2015/05/12/BFC%E7%9A%84%E5%88%9D%E6%AD%A5%E6%8E%A2%E7%B4%A2/"/>
+    <id>https://nekonyan.me/2015/05/12/BFC的初步探索/</id>
+    <published>2015-05-12T15:12:10.000Z</published>
+    <updated>2015-05-14T14:35:10.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="1、因为一句话引起的疑问。">1、因为一句话引起的疑问。</h2><p>最近在温故《CSS权威指南》第三版时在“浮动与定位“那一章看到一句话：</p>
+<blockquote>
+<p>浮动元素会生成一个块级框，而不论这个元素本身是什么······它会像块级元素一样摆放和表现。对浮动元素声明<code>display: block</code>也不是不可能，不过没有必要这么做</p>
+</blockquote>
+<p>看到这句话，我产生了一个疑问，如果浮动元素生成了一个块级框的话，按照块级元素的特性，那么比如两个同级别的<code>div</code>在浮动以后也应该是另起一行的，也就是说浮动后和浮动前的表现没有区别。当然，在浏览器中实际的表现显然不是这样，而是更像<code>display: inline-block</code>的表现，为此我专门去找了<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements" target="_blank" rel="external">块级元素</a>的定义和<a href="http://www.w3.org/wiki/CSS/Properties/float" target="_blank" rel="external">浮动</a>的定义仔细看了看。虽然没有找到能够解释我上面疑惑的解答，但使我对于浮动有了更进一步的认识，在下一节姑且说一下，做一个记录。</p>
+<p>最后我在阅读有关BFC的资料里面找到了可以解释上面问题的相关论述，算是解决了这个问题。</p>
+<a id="more"></a>
+<h2 id="2、对于浮动的进一步理解">2、对于浮动的进一步理解</h2><p>仔细想来，浮动这一概念应该是我当初学习CSS最难理解的概念之一，主要是元素浮动后会产生一些违反常识的效果，并不仅仅是元素浮动到哪一边就了事。</p>
+<p>后来在逐渐的学习中，对于浮动我有了自己的一套理解：<strong>浮动会脱离正常的文档流，然后飘到比原来文档高一个层次的位置（在Z轴上），根据浮动属性值在父元素的范围限制下尽量往上（在Y轴上）靠边（在X轴上）飘，我会假想在正上方有一个光源，因此浮动后的元素在原来文档的位置会有一块阴影，原文档元素不能侵犯这块阴影区域，所以浮动后的元素还是会对文档产生影响。这里提一句就是绝对定位是从正常文档流删除，并且不会对文档其他部分产生影响，这个元素相当于不存在了，浮动还是基于正常的文档流</strong>，所以比如图片进行浮动后，文字会环绕这个图片。但后来我发现元素其实会进入我说的那块阴影区域，这个时候我就不理解了。比如说前面说的文字环绕，如果打开浏览器开发者工具，会发现<code>p</code>元素的范围其实已经进入了那块阴影区域，设置背景颜色就可以发现这一点。这说明我的理解有错吗？现在来看，大体上没错，但在一些细节上还是不够具体，导致理解有偏差。</p>
+<p>在W3C的wiki上对于<code>float</code>的<a href="http://www.w3.org/wiki/CSS/Properties/float" target="_blank" rel="external">解释</a>是这样的：</p>
+<blockquote>
+<p><code>left</code> : The element generates a block box that is floated to the left. Content flows on the right side of the box, starting at the top.</p>
+</blockquote>
+<p>仔细品味这句话时，我明白了前面说的细节在哪里，“Content flows”，主语为Content，指的是其他元素的“内容”，而不是元素本身，比如说<code>p</code>元素，它本身是块级元素，所以元素本身范围会前后各占一行，但元素内容是文本，所以不会侵犯阴影区域，产生围绕效果。也就是说不会侵犯阴影区域的只是其他元素的内容（如果里面嵌套了其他元素也算是内容），而不是元素本身。</p>
+<h2 id="3、BFC的定义">3、BFC的定义</h2><p>像很多网上介绍BFC一样，这里先介绍<strong>Box</strong>和<strong>Formatting Context</strong>的概念。</p>
+<h3 id="Box:_CSS布局的基本单位">Box: CSS布局的基本单位</h3><p>具体W3C文档看<a href="http://www.w3.org/TR/CSS21/visuren.html" target="_blank" rel="external">这里</a><br>Box是CSS布局的对象和基本单位，直观点来说，就是一个页面是由很多个Box(即boxes)组成的。元素的类型和display属性，决定了这个Box的类型。不同类型的Box， 会参与不同的Formatting context(一个决定如何渲染文档的容器)，因此Box内的元素会以不同的方式渲染。常见的盒子类型</p>
+<ol>
+<li>block-level box:display 属性为 block, list-item, table 的元素，会生成 block-level box。并且参与 block fomatting context；</li>
+<li>inline-level box:display 属性为 inline, inline-block, inline-table 的元素，会生成 inline-level box。并且参与 inline formatting context；</li>
+</ol>
+<h3 id="Formatting_context">Formatting context</h3><p>Formatting context 是 W3C CSS2.1 规范中的一个概念。它是页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。最常见的 Formatting context 有 Block fomatting context (简称BFC)和 Inline formatting context (简称IFC)。</p>
+<p>CSS3 中还增加了 GFC 和 FFC。</p>
+<h3 id="BFC">BFC</h3><p><a href="http://www.w3.org/TR/CSS2/visuren.html#block-formatting" target="_blank" rel="external">W3C文档链接</a></p>
+<p>BFC(Block formatting context)直译为”块级格式化上下文”。它是一个独立的渲染区域，只有Block-level box参与， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。</p>
+<h3 id="BFC的一些规则">BFC的一些规则</h3><ol>
+<li>内部的Box会在垂直方向，从顶部开始一个接一个地放置。</li>
+<li>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生叠加</li>
+<li>每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。</li>
+<li>BFC的区域不会与float box叠加。</li>
+<li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然。（这句话很重要！！！）</li>
+<li>计算BFC的高度时，浮动元素也参与计算。</li>
+</ol>
+<h3 id="创建BFC的情况">创建BFC的情况</h3><ol>
+<li>根元素或其它包含它的元素</li>
+<li>浮动 (元素的 float 不为 none)</li>
+<li>绝对定位元素 (元素的 position 为 absolute 或 fixed)</li>
+<li>内联块 inline-blocks (元素的 display: inline-block)</li>
+<li>表格单元格 (元素的 display: table-cell，HTML表格单元格默认属性)</li>
+<li>表格标题 (元素的 display: table-caption, HTML表格标题默认属性)</li>
+<li>overflow 的值不为 visible的元素</li>
+<li>弹性盒 flex boxes (元素的 display: flex 或 inline-flex)</li>
+</ol>
+<h3 id="我对于BFC的理解">我对于BFC的理解</h3><p>对于BFC我一直有一个疑问，那就是display 属性为 inline，会生成 inline-level box。并且参与IFC，而不是BFC，但创建BFC的一种情况明确就是元素的 display: inline-block，这不是自相矛盾吗？</p>
+<p>意识到这个问题，在网上问了一些人，但解释的感觉不是很清楚，后来自己对照BFC的一些应用案例努力理解，有了一些自己的想法。</p>
+<p>首先需要认识到的一点就是参与BFC和生成/创建/形成BFC的概念是不同的。正如前面所说的“只有Block-level box参与， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。”这句话指的是只有block-level box才能参与BFC的创建，是一个前提条件。而创建BFC，是指创建一块渲染区域，这个区域里面包含了block-level box，这样理解的话就不会出现矛盾了。</p>
+<p>在深入理解了BFC之后就可以对本文最开头的疑问做出一些解释了。</p>
+<p>首先float之后，元素本身就创建了BFC，这点毋庸置疑，根据BFC的性质，这块区域就是一个隔离的独立容器了，两个float元素自然就会像display: inline-block一样进行表现了。那float生成的块级框呢？这就需要放到上一层来讨论，块级框肯定生成了Block-level box，这个Block-level box就只能参与上一层形成的BFC。一个很简单的例子。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"overflow: hidden;"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"float: left;background-color: red;"</span>&gt;</span>1<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"float: left;background-color: red;"</span>&gt;</span>2<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>很明显，最外面的div也形成了一个BFC，里面又有两个BFC，所以能够防止塌陷，如果里面的div参与到上一层的BFC中是不是应该在垂直方向，从顶部开始一个接一个地放置呢？浏览器显然没有这么处理，在<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context" target="_blank" rel="external">MDN</a>上有这么一段话</p>
+<blockquote>
+<p>块格式化上下文包括了创建该上下文的元素的所有子元素，但不包括创建了新的块格式化上下文的子元素。</p>
+</blockquote>
+<p>这句话就解决了这个问题，对于上一层的BFC来说，里面两个div（创建了新的BFC）是不包括在内的，上面提到的问题也就无从谈起了。</p>
+<p><strong>说到这里，我感觉有必要说一下最前面的那个疑问了，了解了这么多，我认为块级元素前后新起一行的显示效果会被BFC的显示效果所覆盖，也就是说BFC的优先级更高。</strong></p>
+<h3 id="BFC的具体应用">BFC的具体应用</h3><p>这方面网络上有很多资料，大体上是三个：自适应两栏布局、清除内部浮动、防止垂直margin重叠（相邻的盒子可能是兄弟关系也可能是祖先关系，w3cplus那篇文章里面提到的clearance很有意思，值得一看，见下面链接）。</p>
+<p>详细的代码也就不说了，网上的信息很全。<br>抛几个链接：</p>
+<ul>
+<li><a href="http://www.cnblogs.com/lhb25/p/inside-block-formatting-ontext.html" target="_blank" rel="external">http://www.cnblogs.com/lhb25/p/inside-block-formatting-ontext.html</a></li>
+<li><a href="http://www.html-js.com/article/1866" target="_blank" rel="external">http://www.html-js.com/article/1866</a></li>
+<li><a href="http://www.w3cplus.com/css/understanding-bfc-and-margin-collapse.html" target="_blank" rel="external">http://www.w3cplus.com/css/understanding-bfc-and-margin-collapse.html</a></li>
+</ul>
+<p>前面在写规则时，说第五点很重要是因为BFC内部的元素和外部的元素绝对不会互相影响，因此，当BFC外部存在浮动时，它不应该影响BFC内部Box的布局，BFC会通过变窄，而不与浮动有重叠。同样的，当BFC内部有浮动时，为了不影响外部元素的布局，BFC计算高度时会包括浮动的高度。避免margin重叠也是这样的一个道理。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="1、因为一句话引起的疑问。">1、因为一句话引起的疑问。</h2><p>最近在温故《CSS权威指南》第三版时在“浮动与定位“那一章看到一句话：</p>
+<blockquote>
+<p>浮动元素会生成一个块级框，而不论这个元素本身是什么······它会像块级元素一样摆放和表现。对浮动元素声明<code>display: block</code>也不是不可能，不过没有必要这么做</p>
+</blockquote>
+<p>看到这句话，我产生了一个疑问，如果浮动元素生成了一个块级框的话，按照块级元素的特性，那么比如两个同级别的<code>div</code>在浮动以后也应该是另起一行的，也就是说浮动后和浮动前的表现没有区别。当然，在浏览器中实际的表现显然不是这样，而是更像<code>display: inline-block</code>的表现，为此我专门去找了<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">块级元素</a>的定义和<a href="http://www.w3.org/wiki/CSS/Properties/float">浮动</a>的定义仔细看了看。虽然没有找到能够解释我上面疑惑的解答，但使我对于浮动有了更进一步的认识，在下一节姑且说一下，做一个记录。</p>
+<p>最后我在阅读有关BFC的资料里面找到了可以解释上面问题的相关论述，算是解决了这个问题。</p>]]>
+    
+    </summary>
+    
+      <category term="BFC" scheme="https://nekonyan.me/tags/BFC/"/>
+    
+      <category term="CSS" scheme="https://nekonyan.me/tags/CSS/"/>
+    
+      <category term="FE" scheme="https://nekonyan.me/tags/FE/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[IFE任务2记录]]></title>

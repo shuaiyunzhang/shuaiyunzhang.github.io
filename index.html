@@ -140,6 +140,98 @@
           
           
             
+              <a class="post-title-link" href="/2015/05/12/BFC的初步探索/">
+                BFC的初步探索
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+          <span class="post-time">
+            
+              发表于 2015-05-12
+            
+          </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/12/BFC的初步探索/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/12/BFC的初步探索/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <h2 id="1、因为一句话引起的疑问。">1、因为一句话引起的疑问。</h2><p>最近在温故《CSS权威指南》第三版时在“浮动与定位“那一章看到一句话：</p>
+<blockquote>
+<p>浮动元素会生成一个块级框，而不论这个元素本身是什么······它会像块级元素一样摆放和表现。对浮动元素声明<code>display: block</code>也不是不可能，不过没有必要这么做</p>
+</blockquote>
+<p>看到这句话，我产生了一个疑问，如果浮动元素生成了一个块级框的话，按照块级元素的特性，那么比如两个同级别的<code>div</code>在浮动以后也应该是另起一行的，也就是说浮动后和浮动前的表现没有区别。当然，在浏览器中实际的表现显然不是这样，而是更像<code>display: inline-block</code>的表现，为此我专门去找了<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">块级元素</a>的定义和<a href="http://www.w3.org/wiki/CSS/Properties/float">浮动</a>的定义仔细看了看。虽然没有找到能够解释我上面疑惑的解答，但使我对于浮动有了更进一步的认识，在下一节姑且说一下，做一个记录。</p>
+<p>最后我在阅读有关BFC的资料里面找到了可以解释上面问题的相关论述，算是解决了这个问题。</p>
+          <div class="post-more-link center">
+            <a class="btn" href="/2015/05/12/BFC的初步探索/#more">
+              继续阅读 &raquo;
+            </a>
+          </div>
+        
+
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/BFC/">
+                #BFC
+              </a>
+            
+              <a href="/tags/CSS/">
+                #CSS
+              </a>
+            
+              <a href="/tags/FE/">
+                #FE
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+          <div class="post-eof the-shape"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/05/05/IFE任务2记录/">
                 IFE任务2记录
               </a>
