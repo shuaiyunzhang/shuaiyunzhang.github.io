@@ -140,6 +140,195 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/15/JavaScript设计模式学习总结/">
+                JavaScript设计模式学习总结
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+          <span class="post-time">
+            
+              发表于 2015-07-15
+            
+          </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/15/JavaScript设计模式学习总结/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/15/JavaScript设计模式学习总结/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <h2 id="JavaScript设计模式学习总结">JavaScript设计模式学习总结</h2><h3 id="前言">前言</h3><p>这段时间一直想写Blog主题，于是开始了准备工作，涉及到了模版引擎、MVC、设计模式的一些东西，于是想对近期学习做一个总结。本篇文章先来总结一下对于JavaScript设计模式的学习。</p>
+<p>先来说一下对于设计模式的总体认识：<strong>设计模式是解决软件设计中常见问题的可复用方案</strong>，我认为这应该是设计模式最有价值的地方。从设计模式的发展来看，它是由某位土木工程师建筑设计原则的内容转变而来（果然是万法相通啊←_←），所以与其说它是具体某些编程语言的代码块，还不如说是一种思想或者解决问题的哲学。<br>而具体对应到软件设计中的设计模式，则不得不说四位作者出版的关于设计模式的书，这四个人称之为GoF（Gang of Four），他们在书中列举了23种面向对象设计中常用的经典设计模式，而本篇文章则重点对JavaScript中常用的设计模式来进行阐述。</p>
+<h4 id="设计模式的好处">设计模式的好处</h4><ol>
+<li>是已经验证的解决方案：为解决问题提供了可靠的方法，使用已经验证的解决方案。</li>
+<li>很容易被复用：可以根据需求进行修改。</li>
+<li>富有表达力：有相应的词汇和表述，易于沟通。</li>
+</ol>
+<h4 id="设计模式的几个要素">设计模式的几个要素</h4><ol>
+<li>模式名称（pattern name）：每一个模式都有自己的名字，模式的名字使得我们可以讨论我们的设计。</li>
+<li>问题（problem）：在面向对象的系统设计过程中反复出现的特定场合，它导致我们采用某个模式。</li>
+<li>解决方案（solution）：上述问题的解决方案，其内容给出了设计的各个组成部分，它们之间的关系、职责划分和协作方式。</li>
+<li>等等等～</li>
+</ol>
+<h4 id="23中设计模式分类">23中设计模式分类</h4><ul>
+<li>创建型模式：单例模式、抽象工厂模式、建造者模式、工厂模式与原型模式</li>
+<li>结构型模式：适配器模式、桥接模式、装饰者模式、组合模式、外观模式、享元模式、代理模式</li>
+<li>行为型模式：模版方法模式、命令模式、迭代器模式、观察者模式、中介者模式、备忘录模式、解释器模式、状态模式、策略模式、职责链模式、访问者模式</li>
+</ul>
+<h4 id="一些准备知识">一些准备知识</h4><ul>
+<li><p>原型对象：创建的每一个新函数都会有一个prototype（原型）属性，它是一个指针，指向函数的原型对象，这个对象包含了可以由特定类型的所有实例共享的属性和方法，按照字面意思来理解prototype就是通过调用构造函数而创建的那个对象实例的原型对象。好处就是可以让所有对象实例共享它所包含的属性和方法。</p>
+<p>所有原型对象会自动获得一个constructor（构造函数）属性（默认的，其他方法继承自Object），它同样是一个指针，指<br>向prototype属性所在的函数，比如有一个构造函数Person，那么Person.prototype.constructor指向Person，而Person.prototype指向Person prototype原型对象（好绕啊）􏱧􏰤􏰥。需要有一个图片（直接截Pro Js里面的图了）</p>
+</li>
+<li>原型链：这是Js中实现继承的主要方式，是利用原型让一个引用类型继承另一个引用类型的属性与方法，具体的表现就是让原型对象等于另一个类型的实例，此时的原型对象将包含一个指向另一个原型的指针，相应地，另一个原型中也包含着一个指向另一个构造函数的指针，假如另一个原型又是另一个类型的实例，那么上述关系依然成立，如此层层递进，就构成了实例与原型的链条。</li>
+</ul>
+<h3 id="JavaScript中常用设计模式">JavaScript中常用设计模式</h3><p>这里基本上是按照《JavaScript设计模式》一书的顺序来阐述，添加了少数其他的模式。</p>
+<ul>
+<li><p>Constructor（构造器）模式</p>
+<p>这里的Constructor我的理解就是构造函数，具体代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span><span class="params">(name, age, job)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.job = job;</span><br><span class="line">    <span class="keyword">this</span>.sayName = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        alert(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">"Nicholas"</span>, <span class="number">29</span>, <span class="string">"Software Engineer"</span>);</span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">"Greg"</span>, <span class="number">27</span>, <span class="string">"Doctor"</span>);</span><br></pre></td></tr></table></figure>
+<p>它有几个特点：</p>
+<ul>
+<li>没有显式地创建对象；</li>
+<li>直接将属性和方法赋给了this对象；</li>
+<li>没有return语句</li>
+</ul>
+<p>但严格来说，这里应该是隐式做了一些工作的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span><span class="params">(name, age, job)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="keyword">this</span> = &#123;&#125;;    <span class="comment">//隐式</span></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.job = job;</span><br><span class="line">    <span class="keyword">this</span>.sayName = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        alert(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;    <span class="comment">//隐式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相当于创建了一个空对象并且<code>this</code>变量引用了该对象，属性和方法被加入到<code>this</code>引用的对象中，最后返回<code>this</code>（如果创建并返回一个新对象，比如说创建了一个that并返回，可能会与<code>this</code>返回的内容，比如<code>that.name</code>，发生冲突并覆盖<code>this</code>返回的冲突内容<code>this.name</code>），这里<code>this</code>显然是一个比较特殊的对象，指向了调用该函数的作用域（这个<code>this</code>很烦的，以后有时间写一篇关于它的）。</p>
+<p>构造函数的问题，或者说构造器模式在Js中问题。那就是每个方法在每个实例上都要重新创建一遍，为什么呢？因为方法也是函数，相当于每个实例中的方法不是同一个函数的实例。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person1.sayName === person2.sayName;    <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>Prototype（原型）模式</p>
+<p>GoF中是说这是一种基于现有对象模版，通过克隆方式创建对象的模式（没看懂←_←）。对应到Js中可以理解为这是一种借助原型可以基于已有的对象创建新对象，同时还不必创建自定义类型。</p>
+<p>在ES5中，真正的原型继承要求使用<code>Object.create</code>，这个方法接收两个参数：一个用作新对象原型的对象和（可选的）一个为新对象定义额外属性的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">"Nicholas"</span>,</span><br><span class="line">    friends: [<span class="string">"Shelby"</span>, <span class="string">"Court"</span>, <span class="string">"Van"</span>]</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> anotherPerson = <span class="built_in">Object</span>.create(person);</span><br><span class="line">anotherPerson.name = <span class="string">"Greg"</span>;</span><br><span class="line">anotherPerson.friends.push(<span class="string">"Rob"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(anotherPerson.name);    <span class="comment">// "Greg"</span></span><br><span class="line"><span class="built_in">console</span>.log(anotherPerson.friends);    <span class="comment">// ["Shelby", "Court", "Van", "Rob"]</span></span><br></pre></td></tr></table></figure>
+<p>在《JavaScript设计模式》一书中还对在不使用<code>Object.create</code>的情况下实现Prototype模式进行了讨论，这里就不细致阐述了，原书P72。</p>
+<p>该模式的问题。因为包含引用类型值的属性（对象）始终都会共享相应的值，所以会出现一些问题。</p>
+</li>
+<li><p>Singleton（单例）模式</p>
+<p>单例模式限制了类的实例化次数只能一次（嗯，还是看不懂←_←），在查看各类资料时，发现大概有两种单例的实现，一种最简单，就是<code>{}</code>，里面有各种属性或者方法。</p>
+<p>另外一种则相对复杂。在该实例不存在的情况下，可以通过一个方法创建一个类来实现创建类的新实例；如果已经存在，则会返回该对象的引用。比如，需要在网页上建立一个遮罩层。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> createMask = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> mask;    <span class="comment">//mask是单例的一个引用</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;    <span class="comment">//使用闭包使得mask是私有的</span></span><br><span class="line">        <span class="keyword">return</span> mask || (mask = <span class="built_in">document</span>.body.appendChild(<span class="built_in">document</span>.createElement(<span class="string">'div'</span>)));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Factory（工厂）模式</p>
+<p>工厂就是把成员对象的创建工作转交给一个外部对象，可以消除对象之间的耦合，它分为简单工厂模式和抽象工厂模式，抽象工厂模式大致思路是先设计一个抽象类，这个类不能被实例化，只能用来派生子类，最后通过对子类的扩展实现工厂方法（<strong>其实这里最大的问题是Js是没有类这个概念，所以只能对比着理解了</strong>），这里就不做进一步阐述了。</p>
+<p>对于简单工厂模式，举个例子：你有一个大的功能要做，其中有一部分是要考虑扩展性的，那么这部分代码就可以考虑抽象出来，当做一个全新的对象做处理。好处就是将来扩展的时候容易维护 - 只需要操作这个对象内部方法和属性，达到了动态实现的目的。示例－XHR工厂。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> XMLHttpFactory = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;&#125;;    <span class="comment">// 这是一个简单工厂模式</span></span><br><span class="line">XMLHttpFactory.createXMLHttp = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> XMLHttp = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest) &#123;</span><br><span class="line">        XMLHttp = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">    &#125; <span class="keyword">else</span> (<span class="built_in">window</span>.ActiveXObject) &#123;</span><br><span class="line">        XMLHttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> XMLHttp;</span><br><span class="line">&#125;;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">var</span> AjaxHander = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;    <span class="comment">// XMLHttpFactory.createXMLHttp()这个方法根据当前环境的具体情况返回一个XHR对象。</span></span><br><span class="line">    <span class="keyword">var</span> XMLHttp = XMLHttpFactory.createXMLHttp();  </span><br><span class="line">    ...  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>Observer（观察者）模式</p>
+<p>观察者模式的文字阐述看着头疼，但大致知道了平时常用的DOM事件算是观察者模式经常使用的场景。</p>
+</li>
+<li><p>Module（模块）模式</p>
+<p>Module模式在某种程度上是基于对象字面量，将其作为一个作用域函数的返回值。它使用闭包封装“私有”状态和组织，只需要返回一个公有API，而其他一切则都维持在私有闭包中。该模式返回一个对象，类似于立即调用的函数表达式。Revealing Module（揭示模块）模式不做进一步阐述（由于只有书上讲到这个，我都不确定它到底是不是一种设计模式？）。</p>
+<p>实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> testModule = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> counter = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        incrementCounter: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> ++counter;</span><br><span class="line">        &#125;,</span><br><span class="line">        resetCounter: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"counter value prior to reset: "</span> + counter);</span><br><span class="line">            counter = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">testModule.incrementCounter();</span><br><span class="line">testModule.resetCounter();</span><br></pre></td></tr></table></figure>
+<p>分析：代码的其他部分是无法直接读取incrementCounter()或resetCounter()，需要加模块前缀。counter变量实际上是与全局作用域隔绝的，因此表现的像一个私有变量，而<code>return</code>中返回的变量或者函数才是公有的。</p>
+</li>
+<li><p>Mediator（中介者）模式</p>
+<p><em>待续</em></p>
+</li>
+<li><p>Facade（外观）模式</p>
+<p>这个模式比较好理解，相当于提供了一个高层次的抽象接口，而对于底层的东西自己并不需要去关心，很经典的一个例子就是事件绑定的跨浏览器兼容解决方案，可以在最外层进行封装。再比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stopEvent = <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>&#123;    <span class="comment">// 同时阻止冒泡和事件默认行为</span></span><br><span class="line">    e.stopPropagation();</span><br><span class="line">    e.preventDefault();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个方法被封装为另外一个函数。</p>
+</li>
+<li><p>Decorator（装饰者）模式</p>
+<p>对于该模式我的理解就是为对象添加新的功能（方法），貌似在其他语言中要实现这个功能会比较麻烦，但显然对于JS这门动态语言来说，这种添加功能不是随时都可以进行吗？看了资料的例子也和我想的差不多，直接往某个对象上赋一个函数值，简单粗暴，就不做阐述了。</p>
+</li>
+<li><p>Flyweight（享元）模式</p>
+<p><em>待续</em></p>
+</li>
+<li><p>Bridge（桥接）模式</p>
+<p><em>待续</em></p>
+</li>
+<li><p>Composite（组合）模式</p>
+<p><em>待续</em></p>
+</li>
+<li><p>Adapter（适配器）模式</p>
+<p><em>待续</em></p>
+</li>
+<li><p>Proxy（代理）模式</p>
+<p><em>待续</em></p>
+</li>
+</ul>
+<p>感觉以上这些就应该是JS中比较常用的一些设计模式，先写到这。其实严格来说，最先接触设计模式应该是买《JavaScript设计模式》这本书开始（两三个月前），当时完全是抱着一种只学设计模式的心态来学的，比较刻意，所以很多东西只是看了，但根本不懂，而最近开始接触的一些东西使我认识到其实设计模式自己无意中都接触过了一些，所以剩下的一些没写的设计模式我也不怎么着急，慢慢来。</p>
+<h3 id="参考">参考</h3><ol>
+<li><a href="https://zh.wikipedia.org/wiki/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_(%E8%AE%A1%E7%AE%97%E6%9C%BA" target="_blank" rel="external">https://zh.wikipedia.org/wiki/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_(%E8%AE%A1%E7%AE%97%E6%9C%BA</a>)</li>
+<li><a href="http://book.douban.com/subject/24744217/" target="_blank" rel="external">《JavaScript设计模式》</a></li>
+<li><a href="http://book.douban.com/subject/10546125/" target="_blank" rel="external">《JavaScript高级程序设计》</a></li>
+<li><a href="http://blog.chinaunix.net/uid-26672038-id-3904513.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-26672038-id-3904513.html</a></li>
+<li><a href="http://developer.51cto.com/art/201109/288650_all.htm" target="_blank" rel="external">http://developer.51cto.com/art/201109/288650_all.htm</a></li>
+<li><a href="http://blog.jobbole.com/29454/" target="_blank" rel="external">http://blog.jobbole.com/29454/</a></li>
+</ol>
+
+        
+
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/FE/">
+                #FE
+              </a>
+            
+              <a href="/tags/JavaScript/">
+                #JavaScript
+              </a>
+            
+              <a href="/tags/设计模式/">
+                #设计模式
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+          <div class="post-eof the-shape"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/05/12/BFC的初步探索/">
                 BFC的初步探索
               </a>
