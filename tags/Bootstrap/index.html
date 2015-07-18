@@ -38,11 +38,11 @@
     })();
   </script>
 
-  <title> IFE任务1记录以及IFE // Nekonyan's秘密基地 </title>
+  <title> 标签: Bootstrap // Nekonyan's秘密基地 </title>
 </head>
 
 <body>
-  <div class="container one-column page-post-detail">
+  <div class="container one-column ">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -124,9 +124,14 @@
             
           
 
-          <div id="posts" class="posts-expand">
+          <div id="posts" class="posts-collapse">
             
+  <div class="collection-title">
+    <h2 >Bootstrap</h2>
+  </div>
+
   
+    
 
   <div class="post post-type-normal ">
     <div class="post-header">
@@ -137,7 +142,9 @@
           
           
             
-              IFE任务1记录以及IFE
+              <a class="post-title-link" href="/2015/07/17/CSS布局之圣杯布局-双飞翼布局/">
+                CSS布局之圣杯布局&双飞翼布局以及栅格系统
+              </a>
             
           
         </h1>
@@ -146,15 +153,15 @@
       <div class="post-meta">
           <span class="post-time">
             
-              发表于 2015-05-04
+              07-17
             
           </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/05/IFE任务1记录以及IFE/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/05/IFE任务1记录以及IFE/"></span>
+            <a href="/2015/07/17/CSS布局之圣杯布局-双飞翼布局/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/17/CSS布局之圣杯布局-双飞翼布局/"></span>
             </a>
           </span>
           
@@ -163,70 +170,11 @@
     </div>
 
     
-      <div class="post-body">
 
-        
-        
-
-        
-          <p>差不多一个月前刷知乎时，看到百度的一位大牛在说招聘时提到了<a href="http://ife.baidu.com/" target="_blank" rel="external">IFE</a>，然后马上戳进去看，发现很适合自己目前的情况，然后在<a href="https://github.com/baidu-ife/ife" target="_blank" rel="external">GitHub</a>上报了名，很庆幸自己报上了，这是我<a href="https://github.com/shuaiyunzhang/ife" target="_blank" rel="external">仓库</a>的地址，进入群之后发现好多同年龄的大牛，好生佩服！也让自己充满了干劲！虽然自己正式接触前端时间的确有点迟，而且也不是科班出身，但正如一句话所说：</p>
-<blockquote>
-<p>做好一件事最好的时间是十年前，其次是现在。</p>
-</blockquote>
-<p>既然是自己选择了这条路，那就大胆地走下去吧。</p>
-<a id="more"></a>
-<p>在差不多一个多月的时间里，接触到了很多，感觉除了自己的学习外，跟进IFE更多是一种梳理，能多多少少了解现在正式的前端开发过程，毕竟是百度内部工程师出题和review。</p>
-<p>今后会通过博客来记录我跟进IFE的任务过程中遇到的问题，如果是一些我认为比较重要的点，我会单独分出来写一篇文章做更详细的学习和记录。</p>
-<h2 id="任务一">任务一</h2><p>任务一<a href="https://github.com/baidu-ife/ife/tree/master/task/task0001" target="_blank" rel="external">地址</a></p>
-<p>我完成任务1的<a href="https://github.com/shuaiyunzhang/ife/tree/master/task/task0001/work/shuaiyunzhang" target="_blank" rel="external">地址</a></p>
-<p><em>整理中</em></p>
-
-        
-
-      </div>
-    
-
-    
-      <div class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/CSS/">
-                #CSS
-              </a>
-            
-              <a href="/tags/FE/">
-                #FE
-              </a>
-            
-              <a href="/tags/HTML/">
-                #HTML
-              </a>
-            
-              <a href="/tags/IFE/">
-                #IFE
-              </a>
-            
-          </div>
-        
-
-        
-
-        
-      </div>
     
   </div>
 
 
-
-  
-    
-      <div class="comments" id="comments">
-        <div class="ds-thread" data-thread-key="2015/05/05/IFE任务1记录以及IFE/"
-             data-title="IFE任务1记录以及IFE" data-url="https://nekonyan.me/2015/05/05/IFE任务1记录以及IFE/">
-        </div>
-      </div>
-    
   
 
           </div>
@@ -407,47 +355,6 @@
   
 
   
-  
-    <script type="text/javascript">
-      $(document).ready(function () {
-        var html = $('html');
-
-        $('.sidebar-nav li').on('click', function () {
-          var item = $(this);
-          var activeTabClassName = 'sidebar-nav-active';
-          var activePanelClassName = 'sidebar-panel-active';
-          if (item.hasClass(activeTabClassName)) {
-            return;
-          }
-
-          var currentTarget = $('.' + activePanelClassName);
-          var target = $('.' + item.data('target'));
-
-          $.Velocity
-            .animate(currentTarget, 'transition.slideUpOut', 200)
-            .then(function () {
-              target
-              .velocity('stop')
-              .velocity('transition.slideDownIn', 200)
-              .addClass(activePanelClassName);
-            });
-
-          item.siblings().removeClass(activeTabClassName);
-          item.addClass(activeTabClassName);
-        });
-
-        $('.post-toc a').on('click', function (e) {
-          e.preventDefault();
-          var offset = $(this.getAttribute('href')).offset().top;
-          html.velocity('stop').velocity('scroll', {
-            offset: offset  + 'px',
-            mobileHA: false
-          });
-        });
-      });
-    </script>
-  
-
 
 
   

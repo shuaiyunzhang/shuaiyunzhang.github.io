@@ -1,0 +1,530 @@
+<!doctype html>
+<html class="theme-next use-motion">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="google65db1e6d85524020.html" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0rc1"/>
+
+
+
+
+    <link rel="alternate" href="/atom.xml" title="Nekonyan's秘密基地" type="application/atom+xml" />
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0rc1" />
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39d05a0d6cdd082f9a0da1f7dd8028d6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <title> CSS布局之圣杯布局&双飞翼布局以及栅格系统 // Nekonyan's秘密基地 </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+    <a href="/" class="brand">
+        <span class="logo">
+          <i class="icon-logo"></i>
+        </span>
+        <span class="site-title">Nekonyan's秘密基地</span>
+    </a>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      
+        <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-about">
+        <a href="/about/">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-archives">
+        <a href="/archives/">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-tags">
+        <a href="/tags/">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+      
+        </a>
+      </li>
+    
+      
+      
+         
+      <li class="menu-item menu-item-feed">
+        <a href="/atom.xml">
+          <i class="menu-item-icon icon-feed"></i> <br />
+          
+          RSS
+      
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              CSS布局之圣杯布局&双飞翼布局以及栅格系统
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+          <span class="post-time">
+            
+              发表于 2015-07-17
+            
+          </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/17/CSS布局之圣杯布局-双飞翼布局/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/17/CSS布局之圣杯布局-双飞翼布局/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>最近在整理IFE的学习资料，发现了双飞翼布局的介绍，稍微探究一下发现这个布局实在是很出名，甚至于今年的阿里和百度实习生面试时都被问到了，所以准备对这类布局认真学习整理一下。</p>
+<a id="more"></a>
+<h3 id="介绍">介绍</h3><h4 id="背景">背景</h4><p>首先圣杯布局来自于a list part上的一篇文章：<a href="http://www.alistapart.com/articles/holygrail/" target="_blank" rel="external">http://www.alistapart.com/articles/holygrail/</a> ，而双飞翼布局(flying-wing)则据说来自于淘宝UED（没去考证）。但这两者要解决的问题却是一样的，就是两边定宽，中间自适应的三栏布局，一般中间栏要放在文档流前面以优先渲染。如果从“圣杯”或者“双飞翼”这两个词语展开想象，就会发现脑海中的形象和要解决的问题还是蛮符合的。</p>
+<h4 id="常规实现">常规实现</h4><p>这两种布局的实现方式总的来说是一致的，只是在某些具体细节上有不同。首先他俩都需要三栏全部float浮动，但左右两栏通过负<code>margin</code>得以和中间栏并排，形成三栏布局。</p>
+<h5 id="圣杯布局">圣杯布局</h5><p>HTML</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"page"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"hd"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"bd"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"main"</span>&gt;</span>main<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sub"</span>&gt;</span>sub<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"extra"</span>&gt;</span>extra<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"ft"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>CSS</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.main</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;    <span class="comment">/* 自适应 */</span></span><br><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#39c</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br><span class="line"><span class="class">.sub</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">190px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">100%</span></span></span>;    <span class="comment">/* 让它飘上去，处于同一水平线，extra同 */</span></span><br><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#f60</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> -<span class="number">190px</span></span></span>;    <span class="comment">/* 不遮挡中栏内容，extra同 */</span></span><br><span class="line"><span class="rule">&#125;</span></span></span><br><span class="line"><span class="class">.extra</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">230px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">230px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">right</span>:<span class="value"> -<span class="number">230px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br><span class="line"><span class="id">#bd</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span> <span class="number">230px</span> <span class="number">0</span> <span class="number">190px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>实现效果如图</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/holygrail.png" alt="hlygrail"></p>
+<p>圣杯布局，为了中间<code>div</code>内容不被遮挡，将中间大<code>div</code>设置了左右<code>padding-left</code>和<code>padding-right</code>后（这里是直接用<code>padding</code>来实现），将左右两个<code>div</code>用相对布局<code>position: relative</code>并分别配合<code>right</code>和<code>left</code>属性，以便左右两栏<code>div</code>移动后不遮挡中间div。</p>
+<h5 id="双飞翼布局">双飞翼布局</h5><p>HTML</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"page"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"hd"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"bd"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"main"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"main-wrap"</span>&gt;</span>main<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"sub"</span>&gt;</span>sub<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"extra"</span>&gt;</span>extra<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"ft"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>CSS</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.main</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100%</span></span></span>;    <span class="comment">/* 自适应 */</span></span><br><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#39c</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br><span class="line"><span class="class">.main-wrap</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> <span class="number">190px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> <span class="number">230px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br><span class="line"><span class="class">.sub</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">190px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">100%</span></span></span>;    <span class="comment">/* 让它飘上去，处于同一水平线，extra同 */</span></span><br><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#f60</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br><span class="line"><span class="class">.extra</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">230px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">230px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#666</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">300px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br><span class="line"><span class="id">#bd</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">0</span> <span class="number">230px</span> <span class="number">0</span> <span class="number">190px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>实现效果如图</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/flying-wing.png" alt="flying-wing"></p>
+<p>双飞翼布局，为了中间<code>div</code>内容不被遮挡，直接在中栏<code>div</code>内部创建子<code>div</code>用于放置中栏内容，在该子<code>div</code>里用<code>margin-left</code>和<code>margin-right</code>为左右两栏<code>div</code>留出位置。</p>
+<h4 id="总结">总结</h4><p>总的来说，双飞翼比圣杯多了一个<code>div</code>，但少了<code>position: relative</code>，此外，貌似双飞翼布局的兼容性要好一点，尤其是在低版本IE中。两种布局分别代表了两种不同的路线，双飞翼是用margin来实现中间内容不遮挡，圣杯则是用padding来实现中间内容不遮挡。</p>
+<h3 id="What’s_more…">What’s more…</h3><p>在前端这一块，CSS负责表现，这个“表现”可以理解出很多意思，比如样式，比如布局。CSS布局的实现虽然很多，但可以发现基本上离不开三种方法：</p>
+<ol>
+<li><em>浮动 float</em></li>
+<li><em>负边距 negative margin</em></li>
+<li><em>相对定位 relative position（其实绝对定位用的也蛮多的）</em></li>
+</ol>
+<p>灵活使用这三种方法加以组合就可以实现很多布局方案</p>
+<p>无论是双飞翼还是圣杯布局，它们都属于多栏或多列布局，这种类型最有名的应该是Bootstrap的栅格系统，这里会对其使用和原理做简单介绍。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"row"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-xs-12"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这是使用Bootstrap栅格系统的正确格式</p>
+<p>首先来看<code>.container</code>的源码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.container</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">padding-right</span>:<span class="value"> <span class="number">15px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">padding-left</span>:<span class="value"> <span class="number">15px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> auto</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> auto</span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> (min-width: <span class="number">768px</span>) </span>&#123;</span><br><span class="line">  <span class="class">.container</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">750px</span></span></span>;</span><br><span class="line">  <span class="rule">&#125;</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> (min-width: <span class="number">992px</span>) </span>&#123;</span><br><span class="line">  <span class="class">.container</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">970px</span></span></span>;</span><br><span class="line">  <span class="rule">&#125;</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> (min-width: <span class="number">1200px</span>) </span>&#123;</span><br><span class="line">  <span class="class">.container</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">1170px</span></span></span>;</span><br><span class="line">  <span class="rule">&#125;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>响应式尺寸的改变其实改变的是<code>.container</code>，左右两边均有15px的内边距。</p>
+<p>再来看<code>.row</code>的源码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.row</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">margin-right</span>:<span class="value"> -<span class="number">15px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">margin-left</span>:<span class="value"> -<span class="number">15px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>很显然<code>.row</code>的负外边距恰好抵消了<code>.container</code>的内边距或者说重叠。</p>
+<p>最后来看列（column）的源码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.col-xs-1</span>, <span class="class">.col-sm-1</span>, <span class="class">.col-md-1</span>, <span class="class">.col-lg-1</span>, <span class="class">.col-xs-2</span>, <span class="class">.col-sm-2</span>, <span class="class">.col-md-2</span>, <span class="class">.col-lg-2</span>, <span class="class">.col-xs-3</span>, <span class="class">.col-sm-3</span>, <span class="class">.col-md-3</span>, <span class="class">.col-lg-3</span>, <span class="class">.col-xs-4</span>, <span class="class">.col-sm-4</span>, <span class="class">.col-md-4</span>, <span class="class">.col-lg-4</span>, <span class="class">.col-xs-5</span>, <span class="class">.col-sm-5</span>, <span class="class">.col-md-5</span>, <span class="class">.col-lg-5</span>, <span class="class">.col-xs-6</span>, <span class="class">.col-sm-6</span>, <span class="class">.col-md-6</span>, <span class="class">.col-lg-6</span>, <span class="class">.col-xs-7</span>, <span class="class">.col-sm-7</span>, <span class="class">.col-md-7</span>, <span class="class">.col-lg-7</span>, <span class="class">.col-xs-8</span>, <span class="class">.col-sm-8</span>, <span class="class">.col-md-8</span>, <span class="class">.col-lg-8</span>, <span class="class">.col-xs-9</span>, <span class="class">.col-sm-9</span>, <span class="class">.col-md-9</span>, <span class="class">.col-lg-9</span>, <span class="class">.col-xs-10</span>, <span class="class">.col-sm-10</span>, <span class="class">.col-md-10</span>, <span class="class">.col-lg-10</span>, <span class="class">.col-xs-11</span>, <span class="class">.col-sm-11</span>, <span class="class">.col-md-11</span>, <span class="class">.col-lg-11</span>, <span class="class">.col-xs-12</span>, <span class="class">.col-sm-12</span>, <span class="class">.col-md-12</span>, <span class="class">.col-lg-12</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">min-height</span>:<span class="value"> <span class="number">1px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">padding-right</span>:<span class="value"> <span class="number">15px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">padding-left</span>:<span class="value"> <span class="number">15px</span></span></span>;</span><br><span class="line"><span class="rule">&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>每一列均有15px的内边距，这一处的内边距也会和外面的重叠区域发生重合，导致每一列左右两边的间距为15px，但每两列之间的间距会是30px。</p>
+<p>绕了那么多，既有负外边距，也有内边距，搞了那么麻烦的事的目的就是为了使得列内容拥有充分的留白。</p>
+<p>至于Bootstrap栅格常用的嵌套、偏移和排序背后的代码分析，这里就做进一步阐述了。</p>
+<h3 id="参考">参考</h3><ol>
+<li><a href="http://www.zhihu.com/question/21504052" target="_blank" rel="external">http://www.zhihu.com/question/21504052</a></li>
+<li><a href="http://www.imooc.com/wenda/detail/254035" target="_blank" rel="external">http://www.imooc.com/wenda/detail/254035</a></li>
+<li><a href="http://www.cnblogs.com/langzs/archive/2013/01/27/taobaoshuangfeiyi.html" target="_blank" rel="external">http://www.cnblogs.com/langzs/archive/2013/01/27/taobaoshuangfeiyi.html</a></li>
+<li><a href="http://www.tuicool.com/articles/Afuu2q" target="_blank" rel="external">http://www.tuicool.com/articles/Afuu2q</a></li>
+</ol>
+
+        
+
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Bootstrap/">
+                #Bootstrap
+              </a>
+            
+              <a href="/tags/CSS/">
+                #CSS
+              </a>
+            
+              <a href="/tags/FE/">
+                #FE
+              </a>
+            
+              <a href="/tags/IFE/">
+                #IFE
+              </a>
+            
+              <a href="/tags/双飞翼布局/">
+                #双飞翼布局
+              </a>
+            
+              <a href="/tags/圣杯布局/">
+                #圣杯布局
+              </a>
+            
+              <a href="/tags/栅格系统/">
+                #栅格系统
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    
+      <div class="comments" id="comments">
+        <div class="ds-thread" data-thread-key="2015/07/17/CSS布局之圣杯布局-双飞翼布局/"
+             data-title="CSS布局之圣杯布局&双飞翼布局以及栅格系统" data-url="https://nekonyan.me/2015/07/17/CSS布局之圣杯布局-双飞翼布局/">
+        </div>
+      </div>
+    
+  
+
+          </div>
+
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">nekonyan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+</div>
+
+
+
+  <div class="cc-license">
+    <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+      <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+    </a>
+  </div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/dist/jquery.min.js?v=0.3.0rc1"></script>
+  <script src="/vendors/jquery/dist/forkme-1.0.js"></script>
+
+  <script type="text/javascript">
+      //渲染forkme
+      //第一个参数是显示的文本
+      //第二个参数是链接地址
+      $(document).ready(function(){
+        $("body").forkme("View Forkme","https://github.com/shuaiyunzhang");
+      });
+  </script>
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var body = $('body');
+      var isSidebarVisible = false;
+      var sidebarToggle = $('.sidebar-toggle');
+      var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+      var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+      var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+      var sidebar = $('.sidebar');
+
+      var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+      var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+      var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+      var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+      var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+      var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+      var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+      sidebatToggleMotion();
+      postsListMotion();
+      backToTopMotion();
+
+      function sidebarContentMotion () {
+        $('.sidebar .motion-element').velocity(
+          'transition.slideRightIn',
+          {stagger: 50, drag: true}
+        );
+      }
+
+
+      function backToTopMotion () {
+        var b2top = $('.back-to-top');
+        b2top.on('click', function () {
+          body.velocity('scroll');
+        });
+      }
+
+      function sidebarShowMotion () {
+        var sidebarDisplayDuration = 300;
+        var sidebarWidth = '320px';
+
+        sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+        sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+        sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+        sidebar.velocity({width: sidebarWidth}, sidebarDisplayDuration);
+        isDesktop() && body.velocity({paddingRight: sidebarWidth}, sidebarDisplayDuration);
+        sidebarContentMotion();
+      }
+
+      function sidebarHideMotion () {
+        isDesktop() && body.velocity({paddingRight: 0});
+        sidebar.velocity('reverse');
+
+        sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+      };
+
+      function postsListMotion () {
+        $('.post').velocity('transition.slideDownIn', {stagger: 300, drag: true});
+      }
+
+      function sidebatToggleMotion () {
+        sidebarToggle.on('click', function () {
+          isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+          isSidebarVisible = !isSidebarVisible;
+        });
+        sidebarToggle.hover(function () {
+          if (isSidebarVisible) {return}
+          sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+          sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+          sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+        }, function () {
+          if (isSidebarVisible) {return}
+          sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+          sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+          sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+        });
+      }
+
+      function isDesktop () {
+        return screen.width > 991;
+      }
+
+      function isTablet () {
+        return screen.width < 992 && screen.width > 767;
+      }
+
+      function isMobile () {
+        return screen.width < 767;
+      }
+    });
+  </script>
+
+  
+
+  
+  
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var html = $('html');
+
+        $('.sidebar-nav li').on('click', function () {
+          var item = $(this);
+          var activeTabClassName = 'sidebar-nav-active';
+          var activePanelClassName = 'sidebar-panel-active';
+          if (item.hasClass(activeTabClassName)) {
+            return;
+          }
+
+          var currentTarget = $('.' + activePanelClassName);
+          var target = $('.' + item.data('target'));
+
+          $.Velocity
+            .animate(currentTarget, 'transition.slideUpOut', 200)
+            .then(function () {
+              target
+              .velocity('stop')
+              .velocity('transition.slideDownIn', 200)
+              .addClass(activePanelClassName);
+            });
+
+          item.siblings().removeClass(activeTabClassName);
+          item.addClass(activeTabClassName);
+        });
+
+        $('.post-toc a').on('click', function (e) {
+          e.preventDefault();
+          var offset = $(this.getAttribute('href')).offset().top;
+          html.velocity('stop').velocity('scroll', {
+            offset: offset  + 'px',
+            mobileHA: false
+          });
+        });
+      });
+    </script>
+  
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nekonyan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+  <script type="text/javascript">
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-59831850-1');ga('send','pageview');
+  </script>
+
+</body>
+</html>
