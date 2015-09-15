@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="https://nekonyan.me/"/>
-  <updated>2015-07-18T10:36:12.000Z</updated>
+  <updated>2015-08-03T15:33:11.000Z</updated>
   <id>https://nekonyan.me/</id>
   
   <author>
@@ -13,6 +13,276 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[学习GitHub（非命令行）操作总结之二]]></title>
+    <link href="https://nekonyan.me/2015/08/02/%E5%AD%A6%E4%B9%A0GitHub%EF%BC%88%E9%9D%9E%E5%91%BD%E4%BB%A4%E8%A1%8C%EF%BC%89%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93%E4%B9%8B%E4%BA%8C/"/>
+    <id>https://nekonyan.me/2015/08/02/学习GitHub（非命令行）操作总结之二/</id>
+    <published>2015-08-02T12:31:34.000Z</published>
+    <updated>2015-08-03T15:33:11.000Z</updated>
+    <content type="html"><![CDATA[<p>学习GitHub（非命令行）操作总结的第二篇。这篇文章的内容是对GitHub操作背后原理的介绍，算是很重要的内容。</p>
+<a id="more"></a>
+<h2 id="简单分支操作">简单分支操作</h2><h4 id="分支的概念">分支的概念</h4><p>我们对某个仓库的具体内容的操作，比如对文件的增删等等，在提交之后都会形成一个个提交版本，每一个提交均会包含指向前一次提交的“指针”，这样就会形成前面出现过的一长串的提交链。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba012.png" alt="提交版本"></p>
+<p>而这一长串的提交就放在分支中，在图片中显示就是有一个名为“master”的指针指向最后一次提交，这里一般来说master是GitHub默认指针名，也就是默认分支。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba023.png" alt="master分支"></p>
+<p>这样，出现了分支名指针的一长串提交就成为了分支。</p>
+<p>master分支是默认的分支，中文名为主分支，它和用户自己创建的其他分支在原理上没有区别。而GitHub官方建议是master分支应该用来存放稳定版本的代码。</p>
+<blockquote>
+<p>master 分支上的所有代码都应该是可以部署的</p>
+</blockquote>
+<h4 id="创建新分支">创建新分支</h4><p>首先进入“Branches”一栏，点击master分支右边的“+”，输入新建分支的名字，然后点击“Branch”，就会创建一个新分支，<strong>注意这个新分支的内容是和master分支完全一致的</strong>。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba024.png" alt=""></p>
+<p>点击新分支“anomaster”右边的“Switch to This Branch”可以进行切换分支。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba025.png" alt="切换分支"></p>
+<p>然后来看背后是怎么实现的。新分支和master分支内容一样，并不意味着创建了master的副本，而是创建了一个名为anomaster的新指针和master指针指向了同一次提交，没有创建master的副本。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba026.png" alt="anomaster新分支"></p>
+<p>如果在切换到anomaster分支的情况下作出了修改，并进行提交，则master分支指针指向的提交没变，而anomaster分支指针指向了c3。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba027.png" alt="anomaster分支下提交"></p>
+<h4 id="创建新分支的目的">创建新分支的目的</h4><p>前面说到过，master分支上的代码是十分重要的，但如果我们对于某个项目有了新的想法怎么办，那就可以创建新分支，切换到这个新分支后来进行实践，这样就不会污染到master分支上的重要代码。如果新的思路很好就可以合并到master分支，也就是下一节要介绍的内容。</p>
+<h4 id="实际操作">实际操作</h4><p>首先切换到anomaster分支，然后打开编辑器，添加一个新文件anomaster，内容为“this is a new branch named anomaster”</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba028.png" alt=""></p>
+<p>然后打开客户端，进入“Changes”栏，可以发现只有一个文件anomaster，说明这是anomaster分支，然后提交。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba029.png" alt=""></p>
+<p>进入“History”栏查看可以发现所有提交，不管是master分支还是anomaster分支，这点也恰好说明了前面新建指针理论的正确。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba030.png" alt=""></p>
+<p>这时候我们新建的分支还没有同步到远端的仓库，进入“Branches”栏，点击“Publish”就可以将新分支发布到远端仓库，完成后变为“Published”。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba031.png" alt=""></p>
+<p>再回到网页端，可以发现branches数变为了2</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba032.png" alt=""></p>
+<h4 id="删除分支">删除分支</h4><p>当我们发现某个分支已经没有用时，我们会选择删除它，这里需要注意的是<strong>当前分支是无法删除的，不在使用的分支才允许被删除，这样的删除不仅会删除本地的分支也会删除掉远端的分支。不过master分支就算不在使用也是无法删除的，因为它是默认分支。</strong></p>
+<p>当前分支删除选项灰白，无法删除。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba033.png" alt=""></p>
+<p>非当前分支删除选项可以使用。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba034.png" alt=""></p>
+<p>如果只想删除远端的分支，不想删除本地的分支的话，可以选择选项框中的“Unpublish”选项。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba035.png" alt=""></p>
+<p>再回到网页端就会发现anomaster分支已经不存在了。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba036.png" alt=""></p>
+<h4 id="网页端创建新分支">网页端创建新分支</h4><p>图中的文本框有两个作用，一是当分支较多时查找分支，二是创建新分支，这里创建一个新分支testbran</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba037.png" alt=""></p>
+<p>在客户端点一下“Sync”就可以将远端创建的新分支同步到本地客户端。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba038.png" alt=""></p>
+<h4 id="如何修改默认分支">如何修改默认分支</h4><p>前面提到过默认分支master是无法删除的，如果想把它删除就只有修改默认分支。进入网页端，点击右边的“Settings”。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba039.png" alt=""></p>
+<p>点击“Default branch”进行选择。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba040.png" alt=""></p>
+<p>这样就修改了默认分支为testbran。</p>
+<p>不过一般来说是不会去修改默认分支的，也不会去删除master分支。</p>
+<h2 id="分支合并">分支合并</h2><p>当新的分支被认可时，就可以将新分支合并到master分支中，这里我决定合并anomaster分支和master分支。</p>
+<p>先在客户端切换到master分支，然后点击右上角的“Merge View”，就会出现两个融合框，Merge本身就是就是合并、融合的意思，这里是将前一个框中的分支合并到后一个框中。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba041.png" alt=""></p>
+<p>客户端比较好的一点就是这里可以将对应的分支拖动到融合框中，拖动完成后点击“Merge Branches”。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba042.png" alt=""></p>
+<p>再回到“History”栏，可以看到在原有master分支基础上增加了两个提交：new branch和Merge branch ‘anomaster’，毫无疑问，new branch是anomaster分支中一次提交的内容，而另外一次提交则是特殊的融合提交。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba043.png" alt=""></p>
+<p>这个特殊的融合提交就相当于图中的c5，它不会修改内容，作用就是将两个分支合并起来，它拥有两个指针，一个指向anomaster分支的最新提交，另外一个指向master分支的最新提交，最后master指针移动到c5，这样master分支就代表原有两分支的合并。这时候anomaster分支可以删除了。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba044.png" alt=""></p>
+<h4 id="分支合并的方式">分支合并的方式</h4><p>分支合并除了上面提到的merge之外，还有另外一种叫做rebase（变基），这两者的作用都是一样的，就是将两个分支进行合并，但产生的后果不同。</p>
+<p>在某个分支B上对分支A进行merge后，分支A就被合并到分支B上去了，但分支A还存在，而且在合并后的分支会产生一个“Merge XXX”提交。</p>
+<p>在某个分支B上对分支A进行rebase后，分支A就被合并到分支B上去，但分支A不存在了，只剩下了一条分支，在合并后的分支不会产生“Merge XXX”的提交。</p>
+<p>举个例子，远端仓库别人在master分支进行了提交，这时候本地的master分支还没有那个提交，需要进行同步来将远端和本地两处的master分支进行合并（<strong>注意这里远端和本地的master分支严格意义上是不同的两个分支，所以可以进行合并</strong>），合并完成后可以发现commit的历史版本中并没有“Merge XXX”的提交，因为这种合并是rebase合并。</p>
+<h4 id="代码冲突（Sync_Conflicts）">代码冲突（Sync Conflicts）</h4><p>在实际的开发中，一个仓库的不同分支可能都在同时开发，当代码开发位置不冲突时可以直接合并（merge或rebase），这样不会出现什么问题。</p>
+<p>但当代码开发位置发生冲突时，比如都在编辑同一个地方，这个时候合并（merge或rebase）就会产生问题，因为git它不知道该听谁的编辑，这个时候就只能交给人来解决。</p>
+<p>比如两个人均要修改邮件地址，但这两个人却修改成了不同的邮件地址，当某一方提交后，后面一点的再提交就会出现同步错误的提示，这个时候打开编辑器可以发现冲突位置的变化。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba045.png" alt=""></p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Head代表的是当前分支，这里是本地的master分支，=====是两个代码冲突块的分界线，下面的&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/master表示的是远端的master分支，解决冲突就是把上面的三行“冲突标示符”都删掉，然后修改代码。之后，回到客户端，点击“Commit to Master”。 这样，这次分支合并就完成了，也会生成一个“merge commit”。</p>
+<p><em>貌似关于rebase那一段的解释有点问题，这里先放着，见参考的第二个链接</em></p>
+<h2 id="参考">参考</h2><ul>
+<li><a href="http://book.haoduoshipin.com/gitbeijing/" target="_blank" rel="external">http://book.haoduoshipin.com/gitbeijing/</a></li>
+<li><a href="http://gitbook.liuhui998.com/4_2.html" target="_blank" rel="external">http://gitbook.liuhui998.com/4_2.html</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>学习GitHub（非命令行）操作总结的第二篇。这篇文章的内容是对GitHub操作背后原理的介绍，算是很重要的内容。</p>]]>
+    
+    </summary>
+    
+      <category term="Git" scheme="https://nekonyan.me/tags/Git/"/>
+    
+      <category term="GitHub" scheme="https://nekonyan.me/tags/GitHub/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[对于前端模块化的学习总结]]></title>
+    <link href="https://nekonyan.me/2015/08/02/%E5%AF%B9%E4%BA%8E%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+    <id>https://nekonyan.me/2015/08/02/对于前端模块化的学习总结/</id>
+    <published>2015-08-02T01:43:07.000Z</published>
+    <updated>2015-08-03T15:38:54.000Z</updated>
+    <content type="html"><![CDATA[<p>在自己对于前端知识的探索和学习中，发现了<strong>模块化</strong>这个概念，或者叫<strong>前端模块化</strong>，在对相关资料进行学习之后，我发现前端模块化对于开发来说是一个非常有用的东西。本篇文章是我学习前端模块化的类似于学习笔记式的总结。</p>
+<p>需要说明一点的是，前端模块化更适应于繁重的大型项目，对于我这种实践经验本身就很少的小小白来说，前端模块化更偏向于一种概念化的东西，但还是在网上找到了一些练习资料，也算是多多少少实践了一把。</p>
+<a id="more"></a>
+<h2 id="模块化的概念">模块化的概念</h2><p>先来看一段Fex上的一段话</p>
+<blockquote>
+<p>模块化是一种处理复杂系统分解成为更好的可管理模块的方式，它可以把系统代码划分为一系列职责单一，高度解耦且可替换的模块，系统中某一部分的变化将如何影响其它部分就会变得显而易见，系统的可维护性更加简单易得</p>
+</blockquote>
+<p>从这一段话中，可以看出模块化的几个好处：</p>
+<ol>
+<li>减少依赖，减少耦合</li>
+<li>代码复用，提高开发效率</li>
+<li>便于测试，提升维护性</li>
+</ol>
+<p>在实际的开发中，一个模块相当于整个项目最小单位，这个单位是某一个不可再细分的功能模块。</p>
+<h2 id="前端模块化的目的">前端模块化的目的</h2><p>在查找资料时了解到很多其他软件开发领域或者编程语言基本上都已经实现了模块化，前端开发领域这几年在理论和实践方面的飞速发展，模块化概念开始被重视，比如脚本加载器（或者叫Module Loader）RequireJS，AMD，</p>
+<h2 id="如何前端模块化">如何前端模块化</h2><h2 id="参考">参考</h2><ul>
+<li><a href="http://fex.baidu.com/blog/2014/03/fis-module/" target="_blank" rel="external">http://fex.baidu.com/blog/2014/03/fis-module/</a></li>
+<li><a href="http://segmentfault.com/a/1190000002638831" target="_blank" rel="external">http://segmentfault.com/a/1190000002638831</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在自己对于前端知识的探索和学习中，发现了<strong>模块化</strong>这个概念，或者叫<strong>前端模块化</strong>，在对相关资料进行学习之后，我发现前端模块化对于开发来说是一个非常有用的东西。本篇文章是我学习前端模块化的类似于学习笔记式的总结。</p>
+<p>需要说明一点的是，前端模块化更适应于繁重的大型项目，对于我这种实践经验本身就很少的小小白来说，前端模块化更偏向于一种概念化的东西，但还是在网上找到了一些练习资料，也算是多多少少实践了一把。</p>]]>
+    
+    </summary>
+    
+      <category term="CSS" scheme="https://nekonyan.me/tags/CSS/"/>
+    
+      <category term="FE" scheme="https://nekonyan.me/tags/FE/"/>
+    
+      <category term="JavaScript" scheme="https://nekonyan.me/tags/JavaScript/"/>
+    
+      <category term="template" scheme="https://nekonyan.me/tags/template/"/>
+    
+      <category term="模块化" scheme="https://nekonyan.me/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[学习GitHub（非命令行）操作总结之一]]></title>
+    <link href="https://nekonyan.me/2015/08/01/%E5%AD%A6%E4%B9%A0GitHub%EF%BC%88%E9%9D%9E%E5%91%BD%E4%BB%A4%E8%A1%8C%EF%BC%89%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93%E4%B9%8B%E4%B8%80/"/>
+    <id>https://nekonyan.me/2015/08/01/学习GitHub（非命令行）操作总结之一/</id>
+    <published>2015-08-01T14:14:23.000Z</published>
+    <updated>2015-08-03T11:30:03.000Z</updated>
+    <content type="html"><![CDATA[<p>对于GitHub的操作一直不是很熟练，无论是命令行还是GUI。下了一本《Pro Git》的电子书，却一直没静下心来看，在慕课网上发现了一门课程：<a href="http://www.imooc.com/learn/390" target="_blank" rel="external">版本控制入门 – 搬进 Github</a>，主要是从网页操作和客户端操作的角度来讲Git的操作的，而且也对Git后面的原理做了介绍，相比于《Pro Git》中命令行的教学更为直接也方便上手。本篇文章是我对该门课程学习的一个总结（学习笔记），主要是<a href="https://github.com/" target="_blank" rel="external">网页端</a>的操作和<a href="https://mac.github.com/" target="_blank" rel="external">Mac平台GitHub客户端</a>的操作，其间也有从其他资料找到的信息。</p>
+<a id="more"></a>
+<h2 id="浏览器中使用GitHub">浏览器中使用GitHub</h2><h4 id="浏览器中创建一个仓库的过程">浏览器中创建一个仓库的过程</h4><p>首先点击上面“网页端”的超链接，会出现这样一个页面</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba001.png" alt="GitHub首页－未注册登录"></p>
+<p>关于注册的相关过程很简单，这里就略过。</p>
+<p>注册之后再进入GitHub首页就会进入个人账户，找到如图所示的地方</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba002.png" alt="创建仓库所在"></p>
+<p>点击写有“+ New repository”的绿色按钮，会出现如下界面</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba003.png" alt="创建仓库页面"></p>
+<p>在“Repository name”中填写仓库的名字，这里是“demo”；“Description”正如后面括号写的，这里是可选的，主要是对该仓库内容的描述；再下面的“Public”和“Private”对应了两种仓库类型，只有付费账户才允许创建，区别主要是前一个别人可以访问而后一个不允许；“Initialize this repository with a README”选中则会创建一个markdown文档，也是对该仓库内容的介绍，不过相比前面的“Description”可以自定义地更为详尽，下面那两个“Add .gitignore”和“Add a license”暂时不懂。最后点击“Create repository”的按钮。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba004.png" alt="创建仓库后界面"></p>
+<p>这就是最终一个仓库创建后的初始界面</p>
+<h4 id="Repository">Repository</h4><p>不同于其他软件的项目（project）或者应用（application）等，GitHub使用的是仓库（repository）</p>
+<h4 id="Commit">Commit</h4><p>Commit是GitHub中极为常见的一个词，虽然慕课网上那个课程老师称之“做一个版本”或者叫“版本”，但我在看了其他资料后，感觉还是称其为“提交”更为顺口，当然那位老师的说法也不是错误，只是另外角度的阐释，让我对commit这个词有了更深入的理解，相当于每一次提交操作（增加内容、删除内容、修改内容等）就等于是产生了一个新的版本信息。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba005.png" alt="创建文件"></p>
+<p>这里来增加一个文件“test”。点击后面那个“+”，进入编辑页面。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba006.png" alt="编辑页面"></p>
+<p>点击在上方的“Preview”可以对文件内容进行预览。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba007.png" alt="Zen Mode"></p>
+<p>如果想获得更好的编辑输入体验，在同一水平的右边有一个“Edit in fullscreen”的小图标进入全屏模式，有意思的是这个模式还叫做“Zen Mode”，实在是逼格满满（笑</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba008.png" alt="提交"></p>
+<p>最下方的提交框的两个文本框均为该次提交的留言，前一个简略，后一个详细；这里先选中“Commit directly to the master branch”，后一个暂时不懂。然后点击“Commit new file”。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba009.png" alt="首次提交后的界面"></p>
+<p>可以看到除了原有的README文件外多出了一个test文件，最重要的是“commits”数已经变成了2！说明产生了一个增加文件的版本信息，点击“commits”可以进入显示该仓库所有提交的页面。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba010.png" alt="提交次数页面"></p>
+<p>点击某次提交进入该次提交具体页面。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba011.png" alt="提交详细页面"></p>
+<p>可以看出是“shuaiyunzhang”（who）在8分钟前（when）做了“Showing  1 changed file  with 1 addition and 0 deletions.”的修改（what）。</p>
+<p>另外commit的版本号是图中的“d8768678e07c190395bb6cd1f84f886d622a207e”，四十位的16进制数，在版本号commit的左边parent是该次提交的前一次提交的版本号的前7位（为了显示方便）。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba012.png" alt="提交的示意图"></p>
+<p>这是提交的一个示意图，表示的是所有提交的历史线，比如c1代表了第一次提交，版本号为右边那一长串数字，c2代表第二次提交，以此类推。</p>
+<h2 id="GitHub客户端的使用">GitHub客户端的使用</h2><h4 id="客户端中创建一个仓库的过程">客户端中创建一个仓库的过程</h4><p>相比于浏览器，大家应该更习惯于在本地也就是客户端进行操作，使用自己喜欢的编辑器，也更为高效。</p>
+<p>首先点击左上角的“+”号，会出现三个选项，分别是“Add（添加本地仓库）”、Create（创建新仓库）“和”Clone（克隆远程的仓库）“，这里我是选择了克隆前面创建的demo仓库。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba013.png" alt="客户端创建仓库"></p>
+<p>然后在本地找到该仓库的位置，并用文本编辑器打开，我这里是SublimeText。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba014.png" alt="编辑器打开仓库"></p>
+<p>在test文件中添加新的一行“this is a new line”，然后保存，这时候就会发现客户端出现了变化，在“Changes”一栏中显示“1 Changes”，test前面的小勾表示被选中，右边的文件具体内容左边的蓝色区域也代表选中。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba015.png" alt="添加一行后客户端的状态"></p>
+<p>所以如果点击一下左边的蓝色区域，就可以取消选中，如下图</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba016.png" alt="取消选中变动"></p>
+<p>当然这里我最后还是选上了，在下方的两个文本输入框填写相应信息就可以提交到master分支了（这个和浏览器的操作一致）</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba017.png" alt="提交到master分支"></p>
+<p>然后点击上方的“History”栏来查看每次提交（commit）的信息。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba018.png" alt="每次提交信息"></p>
+<p>从“History”就可以看出每次提交的具体信息，另外如果你认为哪次提交的信息出现了错误，想撤销这次提交，就可以点上上张图片里的“Undo”来撤销该次提交，不过需要注意的是：<strong>Undo只适合没有同步（Sync）的提交，如果已经将该次提交同步了，则Undo无效。</strong></p>
+<p>当然想要撤销掉已经同步的提交也是有办法的，那就是点击下图的“Revert this Commit”</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba019.png" alt="Revert this Commit"></p>
+<p>再来查看“History”中每次提交信息，可以发现出现了一个“Revert XXX”的提交，作用是上次提交添加了什么，名为“Revert XXX”的提交就撤销掉</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba020.png" alt=""></p>
+<p>如果感觉很多个提交均有问题，想把那些认为不好的提交全部撤销怎么办？那就可以先选中自己认为比较好的提交，然后选择“Roll Back to this Commit”</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba021.png" alt="回滚操作"></p>
+<p>可以发现，回滚也是提交了一个新提交，名为“Revert XXX”，抵消掉了前几次提交的操作</p>
+<h4 id="同步">同步</h4><p>同步是GitHub中很重要的一个操作，因为你的代码终究是会和别人分享的，所以需要同步。我在实际操作时发现了一个问题，那就是在慕课网的视频上右上角是“Publish”的字样，而我这里是“Sync”的字样，我想原因应该是我这里是克隆，视频上是创建的原因，这里我直接点击Sync就行了，没有再弹出一个文本框填东西。</p>
+<p>当我们完成了同步操作再回到浏览器页面，可以发现commits数已经变为了6</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba022.png" alt="同步后的浏览器页面"></p>
+<h2 id="参考">参考</h2><ul>
+<li><a href="http://book.haoduoshipin.com/gitbeijing/" target="_blank" rel="external">http://book.haoduoshipin.com/gitbeijing/</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>对于GitHub的操作一直不是很熟练，无论是命令行还是GUI。下了一本《Pro Git》的电子书，却一直没静下心来看，在慕课网上发现了一门课程：<a href="http://www.imooc.com/learn/390">版本控制入门 – 搬进 Github</a>，主要是从网页操作和客户端操作的角度来讲Git的操作的，而且也对Git后面的原理做了介绍，相比于《Pro Git》中命令行的教学更为直接也方便上手。本篇文章是我对该门课程学习的一个总结（学习笔记），主要是<a href="https://github.com/">网页端</a>的操作和<a href="https://mac.github.com/">Mac平台GitHub客户端</a>的操作，其间也有从其他资料找到的信息。</p>]]>
+    
+    </summary>
+    
+      <category term="Git" scheme="https://nekonyan.me/tags/Git/"/>
+    
+      <category term="GitHub" scheme="https://nekonyan.me/tags/GitHub/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[对于MV*模式的初步理解]]></title>
+    <link href="https://nekonyan.me/2015/08/01/%E5%AF%B9%E4%BA%8EMV-%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%88%9D%E6%AD%A5%E7%90%86%E8%A7%A3/"/>
+    <id>https://nekonyan.me/2015/08/01/对于MV-模式的初步理解/</id>
+    <published>2015-08-01T09:28:38.000Z</published>
+    <updated>2015-08-01T09:31:00.000Z</updated>
+    <content type="html"><![CDATA[<p>除了设计模式外，还有一种叫做<strong>架构模式（architectural pattern）——我的理解就是软件架构</strong>来研究如何设计程序结构，而以<strong>MVC、MVP、MVVM</strong>为代表的<strong>MV*</strong>就是一种架构模式，也就是说<strong>MV*不是设计模式</strong>，不过由于MVC里面包含了设计模式，比如观察者模式，所以我的理解就是<strong>架构模式是多种设计模式的综合</strong>。</p>
+<p>而在前端这块，这三种架构模式常常被用来设计各种框架、库、模版引擎，比如Backbone.js、Ember.js、Spine.js、Angular.js、React.js等等，前一段时间想了解的博客主题中也采用了相关设计，在这篇文章中我会对近期学习这三者的简单理解进行总结。</p>
+<a id="more"></a>
+<h2 id="UI中的三个问题：State（状态）、Logic（逻辑）和Synchronization（同步）">UI中的三个问题：State（状态）、Logic（逻辑）和Synchronization（同步）</h2><p>State：可以称为状态或者叫数据，它意味着UI当前描述的数据。</p>
+<p>Logic：这里的逻辑指的是UI逻辑，我的理解是交互（或者叫显示）的逻辑，而不是业务逻辑。</p>
+<p>Synchronization：指的是UI需要与业务变化保持一致，比如说一些数据。</p>
+<h2 id="MVC">MVC</h2><p><strong>MVC</strong>是<strong>Model（模型）</strong>、<strong>View（视图）</strong>、<strong>Controller（控制器）</strong>三个单词首字母的缩写。Model代表了业务数据，View代表了用户界面，Controller代表了业务逻辑和用户输入。这三部分既相互独立又相互联系。</p>
+<p><strong>Model</strong>和View之间是观察者模式，当Model改变时，它会通知它的观察者View（可能会有多个观察者View），这样View就可以做出相应改变。Model可以复用。</p>
+<p><strong>View</strong>是Model的可视化表示，在JavaScript是关于构建和维和一个DOM元素，一个View会检测Model，并在Model更改时进行通知，使View本身能够相应的更新。</p>
+<p><strong>Controller</strong>是Model和View之间的中介，当用户操作View时，它通常负责更新Model，它也会根据不同的action（用户的操作）来决定View的显示，这里我的理解是它单纯地负责路由，如果它更偏向于View的逻辑部分，那么这个C就会变成MVP中的P。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/MVC-Process.svg" alt="MVC各个元素之间的关系"></p>
+<p>在MVC中，View里面的每一个action（用户操作）都与一个Controller中action的调用相关联，一旦Controller完成了相关处理，它就会返回给View，让View进行渲染，相关顺序：</p>
+<blockquote>
+<p>Action in the View -&gt; Call to Controller -&gt; Controller Logic -&gt; Controller returns the View</p>
+</blockquote>
+<p>另外View和Controller之间是没有绑定的，View只是根据Controller返回的结果进行渲染，因此它是无状态的。</p>
+<h2 id="MVP">MVP</h2><p><strong>MVP</strong>是<strong>Model（模型）</strong>、<strong>View（视图）</strong>、<strong>Presenter（表示器）</strong>三个单词首字母的缩写。M和V的意思和MVC差不多，它是MVC模式的一种衍生模式，专注于改进表示逻辑，这里我的理解是Presenter包含了View的业务逻辑，所以说是改进了表示逻辑。正因为它包含了View的业务逻辑，来自View的调用将委托给Presenter，Presenter从View中解耦，通过接口与它对话。</p>
+<p>举个例子，一个人点击了“保存”按钮，这个事件就会委托给Presenter中的“OnSave”方法，一旦保存完成，Presenter就会通过它的接口回调给View，这样View就可以显示保存已经完成。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/Model_View_Presenter_GUI_Design_Pattern.png" alt="MVP各个元素之间的关系"></p>
+<p>Presenter处于View和Model之间，从Model中取数据，格式化后让View显示。</p>
+<p>Passive View（被动视图）是指View保存着State，但业务逻辑保存在Presenter中，Presenter是View和Model的中介者，使得View和Model分离开来（这和MVC不同，MVC中V和M并没有完全分离）。</p>
+<p>Supervising Controller（监管表示器）是指Presenter是某种形式的Controller（所以说它是MVC的衍生模式），Presenter可以明白View的行为，但反之不行</p>
+<h2 id="MVVM">MVVM</h2><p><strong>MVVM</strong>是<strong>Model（模型）</strong>、<strong>View（视图）</strong>、<strong>ViewModel（视图模型）</strong>三个单词首字母的缩写。我认为它和MVP比较相似，ViewModel相当于MVP中Presenter的位置。在MVP提到过View和Presenter是通过接口来进行交互，而在MVVM中则是通过数据绑定来进行交互，这是双向而且自动的。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/MVVMPattern.png" alt="MVVVM各元素之间的关系"></p>
+<p>VM其实也是V和M的中介者，用维基百科上的话说就是一个“值转换器（a value converter）”，将Model中的数据对象转换为View可以直接使用的形式。Model保存原始格式的数据，View包含格式化后的数据。</p>
+<h2 id="小结">小结</h2><p>个人认为这三种模式都有其适应的场景，并不是谁先进谁落后的问题，它们都以将视图和逻辑分离为目标，但在一些具体实现上还是有所差别，比如说MVVM中的数据绑定就很好的优化了数据频繁更新的问题。</p>
+<p>本篇文章只是我学习MV<em>架构模式的初步理解，还有很多地方值得思考，比如这三种模式的具体应用和实现，比如每一个组件之间的依赖关系，比如说业务逻辑和显示逻辑两者的理解等等，以后逐步完善对于MV\</em>的的理解。</p>
+<h2 id="参考">参考</h2><ul>
+<li><a href="http://book.douban.com/subject/24744217/" target="_blank" rel="external">《JavaScript设计模式》</a></li>
+<li><a href="http://www.codeproject.com/Articles/66585/Comparison-of-Architecture-presentation-patterns-M" target="_blank" rel="external">http://www.codeproject.com/Articles/66585/Comparison-of-Architecture-presentation-patterns-M</a></li>
+<li><a href="http://stackoverflow.com/questions/2056/what-are-mvp-and-mvc-and-what-is-the-difference" target="_blank" rel="external">http://stackoverflow.com/questions/2056/what-are-mvp-and-mvc-and-what-is-the-difference</a></li>
+<li><a href="http://stackoverflow.com/questions/667781/what-is-the-difference-between-mvc-and-mvvm" target="_blank" rel="external">http://stackoverflow.com/questions/667781/what-is-the-difference-between-mvc-and-mvvm</a></li>
+<li><a href="http://www.zhihu.com/question/20148405" target="_blank" rel="external">http://www.zhihu.com/question/20148405</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Model_View_ViewModel" target="_blank" rel="external">https://en.wikipedia.org/wiki/Model_View_ViewModel</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank" rel="external">https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter" target="_blank" rel="external">https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html</a></li>
+<li><a href="http://www.cnblogs.com/winter-cn/p/4285171.html" target="_blank" rel="external">http://www.cnblogs.com/winter-cn/p/4285171.html</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>除了设计模式外，还有一种叫做<strong>架构模式（architectural pattern）——我的理解就是软件架构</strong>来研究如何设计程序结构，而以<strong>MVC、MVP、MVVM</strong>为代表的<strong>MV*</strong>就是一种架构模式，也就是说<strong>MV*不是设计模式</strong>，不过由于MVC里面包含了设计模式，比如观察者模式，所以我的理解就是<strong>架构模式是多种设计模式的综合</strong>。</p>
+<p>而在前端这块，这三种架构模式常常被用来设计各种框架、库、模版引擎，比如Backbone.js、Ember.js、Spine.js、Angular.js、React.js等等，前一段时间想了解的博客主题中也采用了相关设计，在这篇文章中我会对近期学习这三者的简单理解进行总结。</p>]]>
+    
+    </summary>
+    
+      <category term="MVC" scheme="https://nekonyan.me/tags/MVC/"/>
+    
+      <category term="MVP" scheme="https://nekonyan.me/tags/MVP/"/>
+    
+      <category term="MVVM" scheme="https://nekonyan.me/tags/MVVM/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CSS布局之圣杯布局&双飞翼布局以及栅格系统]]></title>
@@ -93,7 +363,7 @@
     <link href="https://nekonyan.me/2015/07/15/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
     <id>https://nekonyan.me/2015/07/15/JavaScript设计模式学习总结/</id>
     <published>2015-07-15T14:24:27.000Z</published>
-    <updated>2015-07-18T10:40:10.000Z</updated>
+    <updated>2015-08-08T07:24:40.000Z</updated>
     <content type="html"><![CDATA[<h3 id="前言">前言</h3><p>这段时间一直想写Blog主题，于是开始了准备工作，涉及到了模版引擎、MVC、设计模式的一些东西，于是想对近期学习做一个总结。本篇文章先来总结一下对于JavaScript设计模式的学习。</p>
 <p>先来说一下对于设计模式的总体认识：<strong>设计模式是解决软件设计中常见问题的可复用方案</strong>，我认为这应该是设计模式最有价值的地方。从设计模式的发展来看，它是由某位土木工程师建筑设计原则的内容转变而来（果然是万法相通啊←_←），所以与其说它是具体某些编程语言的代码块，还不如说是一种思想或者解决问题的哲学。<br>而具体对应到软件设计中的设计模式，则不得不说四位作者出版的关于设计模式的书，这四个人称之为GoF（Gang of Four），他们在书中列举了23种面向对象设计中常用的经典设计模式，而本篇文章则重点对JavaScript中常用的设计模式来进行阐述。</p>
 <a id="more"></a>
@@ -168,9 +438,12 @@
 <p>实现：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> testModule = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> counter = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        incrementCounter: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> ++counter;</span><br><span class="line">        &#125;,</span><br><span class="line">        resetCounter: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"counter value prior to reset: "</span> + counter);</span><br><span class="line">            counter = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">testModule.incrementCounter();</span><br><span class="line">testModule.resetCounter();</span><br></pre></td></tr></table></figure>
 <p>分析：代码的其他部分是无法直接读取incrementCounter()或resetCounter()，需要加模块前缀。counter变量实际上是与全局作用域隔绝的，因此表现的像一个私有变量，而<code>return</code>中返回的变量或者函数才是公有的。</p>
+<p><em>后来更新：在看了关于前端模块化的知识后，我认为Module模式算是JavaScript模块化的一个基础，导入和导出的很多表现形式都与Module模式很相似。</em></p>
 </li>
 <li><p>Mediator（中介者）模式</p>
-<p><em>待续</em></p>
+<p>中介者模式顾名思义，它允许我们公开一个统一的接口（作为中介者），系统的不同部分可以通过该接口进行通信。它有松耦合的作用，确保了各个组件的交互是通过这个中心点来处理，而不是显式地引用彼此。</p>
+<p><em>关于Mediator模式的实现例子还是需要等连上网才能找，书上的例子不适合。</em></p>
+<p>Mediator模式的最大好处是它能将系统中对象或组件之间所需的通信渠道从多对多减少到多对一，缺点就是会引入单一故障点，也可能会导致性能下降。</p>
 </li>
 <li><p>Facade（外观）模式</p>
 <p>这个模式比较好理解，相当于提供了一个高层次的抽象接口，而对于底层的东西自己并不需要去关心，很经典的一个例子就是事件绑定的跨浏览器兼容解决方案，可以在最外层进行封装。再比如：</p>
@@ -181,7 +454,10 @@
 <p>对于该模式我的理解就是为对象添加新的功能（方法），貌似在其他语言中要实现这个功能会比较麻烦，但显然对于JS这门动态语言来说，这种添加功能不是随时都可以进行吗？看了资料的例子也和我想的差不多，直接往某个对象上赋一个函数值，简单粗暴，就不做阐述了。</p>
 </li>
 <li><p>Flyweight（享元）模式</p>
-<p><em>待续</em></p>
+<p>Flyweight来自于拳击术语，相当于轻量级的意思。它用于优化重复、缓慢及数据共享效率低的代码，旨在通过与相关的对象共享尽可能多的数据来减少程序中的内存占用的使用。</p>
+<p>在实践中，Flyweight数据共享会涉及获取多个对象使用的若干相似对象或数据结构，以及将这些数据放到一个单一的外部对象中，我们可以将该对象传递给依赖这些数据的对象，而不是在每一个对象都存储相同的数据。</p>
+<p>该模式的应用有两种方式，第一种是用于数据层，处理内存中保存的大量相似对象的共享数据，用于该层是最常用的；第二种是用于DOM层，Flyweight可以用作中央事件管理器，来避免将事件处理程序附加到父容器中的每个子元素上，而是将事件处理程序附加到这个父容器上。</p>
+<p><em>具体实现的例子要去网上找。</em></p>
 </li>
 <li><p>Bridge（桥接）模式</p>
 <p><em>待续</em></p>
@@ -461,7 +737,7 @@
     <link href="https://nekonyan.me/2015/04/09/%E5%AF%B9%E4%BA%8EHTML5%E6%A6%82%E5%BF%B5%E4%B8%8A%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%A4%E8%AF%86/"/>
     <id>https://nekonyan.me/2015/04/09/对于HTML5概念上的一些认识/</id>
     <published>2015-04-09T04:03:47.000Z</published>
-    <updated>2015-05-04T13:59:42.000Z</updated>
+    <updated>2015-08-03T15:40:12.000Z</updated>
     <content type="html"><![CDATA[<h2 id="初识html5">初识html5</h2><h3 id="1、我与HTML5">1、我与HTML5</h3><p>对于前端来说，HTML5的开发是一个无法避开的领域，同时，整个前端开发也因为HTML5的成熟而充满活力。开始学习前端时，忙于学习基础知识，把HTML5当做新技术，只是浅尝辄止，束之高阁。不过到了现在这个时候，我有必要对HTML5开始一次比较系统的学习，这篇文章起一个头，从我的视角从一个概要的层面来说一些对于HTML5的认识。</p>
 <h3 id="2、究竟什么是html5？">2、究竟什么是html5？</h3><p>认识一个新事物（虽然算起来html5也不小了。。。）首先需要搞清楚它的定义，最常用的方式应该就是把关键词丢到搜索引擎去搜，很多相关网站给出的解释是：</p>
 <blockquote>
@@ -478,6 +754,89 @@
 <h4 id="2-1、逸事——HTML5还是HTML_5？">2.1、逸事——HTML5还是HTML 5？</h4><p>最初接触时，真没有发现这两者有什么不同，以为只是印刷或者一种书写习惯罢了。有意思的事，后来发现这两者还是有很细微的区别的。</p>
 <p>众所周知，一些浏览器厂商不满W3C，于是成立了WHATWG，初期这个组织算是推进HTML5标准制定的主要动力，在认识到新标准大势所趋之后，W3C基于WHATWG的成果推进新标准，但名字变成了HTML 5，多了一个空格。</p>
 <p>来源：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5/Introduction_to_HTML5" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5/Introduction_to_HTML5</a></p>
+<h4 id="2-2、HTML5与HTML4的区别">2.2、HTML5与HTML4的区别</h4><p>这一部分内容算是<a href="http://www.w3.org/TR/html5-diff/" target="_blank" rel="external">http://www.w3.org/TR/html5-diff/</a> 这部分资料的学习总结</p>
+<ul>
+<li><p>语法</p>
+<ul>
+<li>HTML5的语法兼容了旧版本HTML几乎大部分语法，但对于旧版本的一些不被大部分用户代理支持的语法</li>
+<li>HTML5的语法要求开发者声明字符编码，有三种实现方法：</li>
+</ul>
+<blockquote>
+<p>At the transport level; for instance, by using the HTTP Content-Type header.</p>
+<p>Using a Unicode Byte Order Mark (BOM) character at the start of the file. This character provides a signature for the encoding used.</p>
+<p>Using a meta element with a charset attribute that specifies the encoding within the first 1024 bytes of the document; for instance, <meta charset="UTF-8"> could be used to specify the UTF-8 encoding. This replaces the need for <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> although that syntax is still allowed.</p>
+</blockquote>
+<ul>
+<li>文档类型声明保证了HTML文档以标准模式渲染文档。HTML5使用<code>&lt;!DOCTYPE html&gt;</code>声明，旧版本的HTML因为牵涉到DTD文档类型声明会更长一点。</li>
+<li>MathML与SVG这部分我不熟悉，不做阐述</li>
+<li>其他内容：这里面只捡我认为比较重要的部分来说。<strong>空元素允许有结束斜线</strong>；属性之间必须分隔开至少一个空格的字符距离；属性值为空的属性可以省去等号和值，不是布尔值属性也这样</li>
+</ul>
+</li>
+<li><p>语言</p>
+<ul>
+<li>新的元素：为了更好的结构化，一些新的元素被引入</li>
+</ul>
+<blockquote>
+<p><code>section</code>表示一个普通的文档或者应用部分，而且应当一起使用<code>h1</code>，<code>h2</code>，<code>h3</code>，<code>h4</code>，<code>h5</code>，<code>h6</code>这些元素来表明文档的结构</p>
+<p><code>article</code>表示文档内容的独立片段，比如说一篇博客记录或者一片新闻文章。</p>
+<p><code>main</code>表示一个文档或应用程序的主体的主要内容</p>
+<p><code>aside</code>表示一块内容是稍微相关的页面的其余部分</p>
+<p><code>header</code>表示一组介绍或者导航帮助</p>
+<p><code>footer</code>表示页脚的部分，可以包含关于作者，版权信息等信息</p>
+<p><code>nav</code>表示文档的一个部分用于导航</p>
+</blockquote>
+<p>上面的标签应该是HTML5中比较常用的，还有差不多二十多个新标签没介绍，这里就不深入了</p>
+<ul>
+<li>新的属性：一些新属性被添加到已经是HTML4的元素中</li>
+</ul>
+<blockquote>
+<p><code>html</code>元素有一个称为<code>manifest</code>的新属性，它指向一个与脱机Web应用程序的API一起使用的应用程序缓存清单</p>
+<p><code>meta</code>元素有一个<code>charset</code>新属性用于规定文档的字符编码</p>
+</blockquote>
+<p>更多的新属性查看文档</p>
+<ul>
+<li>改变的元素：在HTML5中，有部分元素轻微改变了他们的意义来更好的显示它们在web的中的用法，使得他们更加有用（<strong>看了这部分我才知道很多元素并没有消亡，而只是改变了意思</strong>）</li>
+</ul>
+<blockquote>
+<p><code>strong</code>元素现在表示重要性而不是重语气</p>
+<p><code>small</code>元素表示不重要的评论比如小的打印文字</p>
+<p><code>hr</code>元素表示一个段落层次的专题停顿</p>
+</blockquote>
+<p>更多的改变元素查看文档</p>
+<ul>
+<li>改变的属性：一些元素属性通过各种方式改变了其原有意义</li>
+</ul>
+<blockquote>
+<p><code>form</code>的<code>action</code>属性再也不允许一个空的URL了</p>
+<p><code>img</code>的<code>alt</code>属性有了更复杂的要求，而且在某些情况下可以省略</p>
+<p><code>link</code>的<code>href</code>属性不再允许空URL</p>
+<p><code>img</code> <code>iframe</code> <code>object</code>的<code>width</code> <code>height</code>属性不允许包括百分比，它们也不被允许拉伸到比固有的宽高比不同的比例</p>
+</blockquote>
+<p>更多改变的属性查看文档</p>
+<ul>
+<li>淘汰的元素：这些元素不会被web开发者使用，但用户代理仍会支持它们（<strong>这些才是真正消亡的</strong>）</li>
+</ul>
+<blockquote>
+<p>比如<code>isindex</code> <code>basefont</code> <code>big</code> <code>center</code> <code>frame</code> <code>frameset</code>等等</p>
+</blockquote>
+<ul>
+<li>淘汰的属性：部分HTML4中的属性已经在HTML5中被淘汰，用户代理仍会处理那些比较老的文档，但开发者不应该使用</li>
+</ul>
+<blockquote>
+<p><code>link</code>的<code>target</code>；<code>html</code>的<code>version</code>；<code>img</code>的<code>name</code>；大部分元素的<code>align</code>；<code>body</code>的<code>background</code>；<code>table</code>的<code>cellspacing</code>和<code>cellpadding</code>等等</p>
+</blockquote>
+</li>
+<li><p>内容模型</p>
+<p>内容模型定义了元素如何嵌套－什么才能作为某元素的儿子（或后代）。</p>
+<p>HTML4有主要两个元素种类：”inline”和”block-level”，而它们的内容模型却很复杂。</p>
+<p>HTML5没有使用“inline”，“block-level”术语作为它内容模型的规则，但它有比HTML4更多的种类，一个元素可以什么也不是，也可以是它们中的一个，也可以是它们中的很多类，比如说元数据内容：<code>link``script</code>；流内容：<code>span``div</code>；分块内容：<code>aside</code> <code>section</code>；标题内容：<code>h1</code>；短语内容：<code>span</code> <code>img</code> text，这有点类似HTML4的“inline”；嵌入内容：<code>img</code> <code>iframe</code> <code>svg</code>；交互内容：<code>a</code> <code>button</code> <code>label</code>，交互内容不允许嵌套；</p>
+<p>还有很多更为详细的内容查看文档</p>
+</li>
+<li><p>APIs</p>
+<p>HTML5引入了很多新的APIs，并且也拓展了，改变了或淘汰了一些存在的APIs。大致分为新增加的APIs、改变的APIs、拓展的APIs、淘汰的APIs</p>
+<p>这里面内容我不是很熟，而且要展开来说实在过于庞大，这里就不做进一步阐述了</p>
+</li>
+</ul>
 <h3 id="3、html5的具体内容">3、html5的具体内容</h3><p>要学习html5，需要对html5 的具体内容有一个了解，做到心中有数，由于2014年10月份，W3C正式发布了HTML5的正式推荐标准，相当于html5定稿，因此最全面的内容概述，莫过于W3C的<a href="http://www.w3.org/TR/html5/" target="_blank" rel="external">HTML5推荐标准</a>了</p>
 <h4 id="3-1、对于W3C文档成熟过程的简单理解">3.1、对于W3C文档成熟过程的简单理解</h4><p>关于这部分内容可以直接戳 <a href="http://www.w3.org/2014/Process-20140801/#reports" target="_blank" rel="external">http://www.w3.org/2014/Process-20140801/#reports</a> 但这里面的东西实在太多了，只要掌握了解过程即可，在查询了一些资料后我进行了简化。</p>
 <p>按照W3C的过程文档，一个推荐标准的发展需要通过不同的成熟级别。</p>
@@ -507,6 +866,10 @@
     </summary>
     
       <category term="FE" scheme="https://nekonyan.me/tags/FE/"/>
+    
+      <category term="HTML" scheme="https://nekonyan.me/tags/HTML/"/>
+    
+      <category term="HTML4" scheme="https://nekonyan.me/tags/HTML4/"/>
     
       <category term="HTML5" scheme="https://nekonyan.me/tags/HTML5/"/>
     

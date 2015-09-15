@@ -185,6 +185,89 @@
 <h4 id="2-1、逸事——HTML5还是HTML_5？">2.1、逸事——HTML5还是HTML 5？</h4><p>最初接触时，真没有发现这两者有什么不同，以为只是印刷或者一种书写习惯罢了。有意思的事，后来发现这两者还是有很细微的区别的。</p>
 <p>众所周知，一些浏览器厂商不满W3C，于是成立了WHATWG，初期这个组织算是推进HTML5标准制定的主要动力，在认识到新标准大势所趋之后，W3C基于WHATWG的成果推进新标准，但名字变成了HTML 5，多了一个空格。</p>
 <p>来源：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5/Introduction_to_HTML5" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5/Introduction_to_HTML5</a></p>
+<h4 id="2-2、HTML5与HTML4的区别">2.2、HTML5与HTML4的区别</h4><p>这一部分内容算是<a href="http://www.w3.org/TR/html5-diff/" target="_blank" rel="external">http://www.w3.org/TR/html5-diff/</a> 这部分资料的学习总结</p>
+<ul>
+<li><p>语法</p>
+<ul>
+<li>HTML5的语法兼容了旧版本HTML几乎大部分语法，但对于旧版本的一些不被大部分用户代理支持的语法</li>
+<li>HTML5的语法要求开发者声明字符编码，有三种实现方法：</li>
+</ul>
+<blockquote>
+<p>At the transport level; for instance, by using the HTTP Content-Type header.</p>
+<p>Using a Unicode Byte Order Mark (BOM) character at the start of the file. This character provides a signature for the encoding used.</p>
+<p>Using a meta element with a charset attribute that specifies the encoding within the first 1024 bytes of the document; for instance, <meta charset="UTF-8"> could be used to specify the UTF-8 encoding. This replaces the need for <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> although that syntax is still allowed.</p>
+</blockquote>
+<ul>
+<li>文档类型声明保证了HTML文档以标准模式渲染文档。HTML5使用<code>&lt;!DOCTYPE html&gt;</code>声明，旧版本的HTML因为牵涉到DTD文档类型声明会更长一点。</li>
+<li>MathML与SVG这部分我不熟悉，不做阐述</li>
+<li>其他内容：这里面只捡我认为比较重要的部分来说。<strong>空元素允许有结束斜线</strong>；属性之间必须分隔开至少一个空格的字符距离；属性值为空的属性可以省去等号和值，不是布尔值属性也这样</li>
+</ul>
+</li>
+<li><p>语言</p>
+<ul>
+<li>新的元素：为了更好的结构化，一些新的元素被引入</li>
+</ul>
+<blockquote>
+<p><code>section</code>表示一个普通的文档或者应用部分，而且应当一起使用<code>h1</code>，<code>h2</code>，<code>h3</code>，<code>h4</code>，<code>h5</code>，<code>h6</code>这些元素来表明文档的结构</p>
+<p><code>article</code>表示文档内容的独立片段，比如说一篇博客记录或者一片新闻文章。</p>
+<p><code>main</code>表示一个文档或应用程序的主体的主要内容</p>
+<p><code>aside</code>表示一块内容是稍微相关的页面的其余部分</p>
+<p><code>header</code>表示一组介绍或者导航帮助</p>
+<p><code>footer</code>表示页脚的部分，可以包含关于作者，版权信息等信息</p>
+<p><code>nav</code>表示文档的一个部分用于导航</p>
+</blockquote>
+<p>上面的标签应该是HTML5中比较常用的，还有差不多二十多个新标签没介绍，这里就不深入了</p>
+<ul>
+<li>新的属性：一些新属性被添加到已经是HTML4的元素中</li>
+</ul>
+<blockquote>
+<p><code>html</code>元素有一个称为<code>manifest</code>的新属性，它指向一个与脱机Web应用程序的API一起使用的应用程序缓存清单</p>
+<p><code>meta</code>元素有一个<code>charset</code>新属性用于规定文档的字符编码</p>
+</blockquote>
+<p>更多的新属性查看文档</p>
+<ul>
+<li>改变的元素：在HTML5中，有部分元素轻微改变了他们的意义来更好的显示它们在web的中的用法，使得他们更加有用（<strong>看了这部分我才知道很多元素并没有消亡，而只是改变了意思</strong>）</li>
+</ul>
+<blockquote>
+<p><code>strong</code>元素现在表示重要性而不是重语气</p>
+<p><code>small</code>元素表示不重要的评论比如小的打印文字</p>
+<p><code>hr</code>元素表示一个段落层次的专题停顿</p>
+</blockquote>
+<p>更多的改变元素查看文档</p>
+<ul>
+<li>改变的属性：一些元素属性通过各种方式改变了其原有意义</li>
+</ul>
+<blockquote>
+<p><code>form</code>的<code>action</code>属性再也不允许一个空的URL了</p>
+<p><code>img</code>的<code>alt</code>属性有了更复杂的要求，而且在某些情况下可以省略</p>
+<p><code>link</code>的<code>href</code>属性不再允许空URL</p>
+<p><code>img</code> <code>iframe</code> <code>object</code>的<code>width</code> <code>height</code>属性不允许包括百分比，它们也不被允许拉伸到比固有的宽高比不同的比例</p>
+</blockquote>
+<p>更多改变的属性查看文档</p>
+<ul>
+<li>淘汰的元素：这些元素不会被web开发者使用，但用户代理仍会支持它们（<strong>这些才是真正消亡的</strong>）</li>
+</ul>
+<blockquote>
+<p>比如<code>isindex</code> <code>basefont</code> <code>big</code> <code>center</code> <code>frame</code> <code>frameset</code>等等</p>
+</blockquote>
+<ul>
+<li>淘汰的属性：部分HTML4中的属性已经在HTML5中被淘汰，用户代理仍会处理那些比较老的文档，但开发者不应该使用</li>
+</ul>
+<blockquote>
+<p><code>link</code>的<code>target</code>；<code>html</code>的<code>version</code>；<code>img</code>的<code>name</code>；大部分元素的<code>align</code>；<code>body</code>的<code>background</code>；<code>table</code>的<code>cellspacing</code>和<code>cellpadding</code>等等</p>
+</blockquote>
+</li>
+<li><p>内容模型</p>
+<p>内容模型定义了元素如何嵌套－什么才能作为某元素的儿子（或后代）。</p>
+<p>HTML4有主要两个元素种类：”inline”和”block-level”，而它们的内容模型却很复杂。</p>
+<p>HTML5没有使用“inline”，“block-level”术语作为它内容模型的规则，但它有比HTML4更多的种类，一个元素可以什么也不是，也可以是它们中的一个，也可以是它们中的很多类，比如说元数据内容：<code>link``script</code>；流内容：<code>span``div</code>；分块内容：<code>aside</code> <code>section</code>；标题内容：<code>h1</code>；短语内容：<code>span</code> <code>img</code> text，这有点类似HTML4的“inline”；嵌入内容：<code>img</code> <code>iframe</code> <code>svg</code>；交互内容：<code>a</code> <code>button</code> <code>label</code>，交互内容不允许嵌套；</p>
+<p>还有很多更为详细的内容查看文档</p>
+</li>
+<li><p>APIs</p>
+<p>HTML5引入了很多新的APIs，并且也拓展了，改变了或淘汰了一些存在的APIs。大致分为新增加的APIs、改变的APIs、拓展的APIs、淘汰的APIs</p>
+<p>这里面内容我不是很熟，而且要展开来说实在过于庞大，这里就不做进一步阐述了</p>
+</li>
+</ul>
 <h3 id="3、html5的具体内容">3、html5的具体内容</h3><p>要学习html5，需要对html5 的具体内容有一个了解，做到心中有数，由于2014年10月份，W3C正式发布了HTML5的正式推荐标准，相当于html5定稿，因此最全面的内容概述，莫过于W3C的<a href="http://www.w3.org/TR/html5/" target="_blank" rel="external">HTML5推荐标准</a>了</p>
 <h4 id="3-1、对于W3C文档成熟过程的简单理解">3.1、对于W3C文档成熟过程的简单理解</h4><p>关于这部分内容可以直接戳 <a href="http://www.w3.org/2014/Process-20140801/#reports" target="_blank" rel="external">http://www.w3.org/2014/Process-20140801/#reports</a> 但这里面的东西实在太多了，只要掌握了解过程即可，在查询了一些资料后我进行了简化。</p>
 <p>按照W3C的过程文档，一个推荐标准的发展需要通过不同的成熟级别。</p>
@@ -216,6 +299,14 @@
             
               <a href="/tags/FE/">
                 #FE
+              </a>
+            
+              <a href="/tags/HTML/">
+                #HTML
+              </a>
+            
+              <a href="/tags/HTML4/">
+                #HTML4
               </a>
             
               <a href="/tags/HTML5/">

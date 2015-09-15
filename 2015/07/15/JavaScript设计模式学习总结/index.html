@@ -243,9 +243,12 @@
 <p>实现：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> testModule = (<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> counter = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        incrementCounter: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> ++counter;</span><br><span class="line">        &#125;,</span><br><span class="line">        resetCounter: <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"counter value prior to reset: "</span> + counter);</span><br><span class="line">            counter = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">testModule.incrementCounter();</span><br><span class="line">testModule.resetCounter();</span><br></pre></td></tr></table></figure>
 <p>分析：代码的其他部分是无法直接读取incrementCounter()或resetCounter()，需要加模块前缀。counter变量实际上是与全局作用域隔绝的，因此表现的像一个私有变量，而<code>return</code>中返回的变量或者函数才是公有的。</p>
+<p><em>后来更新：在看了关于前端模块化的知识后，我认为Module模式算是JavaScript模块化的一个基础，导入和导出的很多表现形式都与Module模式很相似。</em></p>
 </li>
 <li><p>Mediator（中介者）模式</p>
-<p><em>待续</em></p>
+<p>中介者模式顾名思义，它允许我们公开一个统一的接口（作为中介者），系统的不同部分可以通过该接口进行通信。它有松耦合的作用，确保了各个组件的交互是通过这个中心点来处理，而不是显式地引用彼此。</p>
+<p><em>关于Mediator模式的实现例子还是需要等连上网才能找，书上的例子不适合。</em></p>
+<p>Mediator模式的最大好处是它能将系统中对象或组件之间所需的通信渠道从多对多减少到多对一，缺点就是会引入单一故障点，也可能会导致性能下降。</p>
 </li>
 <li><p>Facade（外观）模式</p>
 <p>这个模式比较好理解，相当于提供了一个高层次的抽象接口，而对于底层的东西自己并不需要去关心，很经典的一个例子就是事件绑定的跨浏览器兼容解决方案，可以在最外层进行封装。再比如：</p>
@@ -256,7 +259,10 @@
 <p>对于该模式我的理解就是为对象添加新的功能（方法），貌似在其他语言中要实现这个功能会比较麻烦，但显然对于JS这门动态语言来说，这种添加功能不是随时都可以进行吗？看了资料的例子也和我想的差不多，直接往某个对象上赋一个函数值，简单粗暴，就不做阐述了。</p>
 </li>
 <li><p>Flyweight（享元）模式</p>
-<p><em>待续</em></p>
+<p>Flyweight来自于拳击术语，相当于轻量级的意思。它用于优化重复、缓慢及数据共享效率低的代码，旨在通过与相关的对象共享尽可能多的数据来减少程序中的内存占用的使用。</p>
+<p>在实践中，Flyweight数据共享会涉及获取多个对象使用的若干相似对象或数据结构，以及将这些数据放到一个单一的外部对象中，我们可以将该对象传递给依赖这些数据的对象，而不是在每一个对象都存储相同的数据。</p>
+<p>该模式的应用有两种方式，第一种是用于数据层，处理内存中保存的大量相似对象的共享数据，用于该层是最常用的；第二种是用于DOM层，Flyweight可以用作中央事件管理器，来避免将事件处理程序附加到父容器中的每个子元素上，而是将事件处理程序附加到这个父容器上。</p>
+<p><em>具体实现的例子要去网上找。</em></p>
 </li>
 <li><p>Bridge（桥接）模式</p>
 <p><em>待续</em></p>

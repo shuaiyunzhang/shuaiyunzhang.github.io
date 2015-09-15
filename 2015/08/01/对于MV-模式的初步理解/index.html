@@ -1,0 +1,507 @@
+<!doctype html>
+<html class="theme-next use-motion">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="google65db1e6d85524020.html" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0rc1"/>
+
+
+
+
+    <link rel="alternate" href="/atom.xml" title="Nekonyan's秘密基地" type="application/atom+xml" />
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0rc1" />
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39d05a0d6cdd082f9a0da1f7dd8028d6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <title> 对于MV*模式的初步理解 // Nekonyan's秘密基地 </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+    <a href="/" class="brand">
+        <span class="logo">
+          <i class="icon-logo"></i>
+        </span>
+        <span class="site-title">Nekonyan's秘密基地</span>
+    </a>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      
+        <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-about">
+        <a href="/about/">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-archives">
+        <a href="/archives/">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-tags">
+        <a href="/tags/">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+      
+        </a>
+      </li>
+    
+      
+      
+         
+      <li class="menu-item menu-item-feed">
+        <a href="/atom.xml">
+          <i class="menu-item-icon icon-feed"></i> <br />
+          
+          RSS
+      
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              对于MV*模式的初步理解
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+          <span class="post-time">
+            
+              发表于 2015-08-01
+            
+          </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/01/对于MV-模式的初步理解/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/01/对于MV-模式的初步理解/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>除了设计模式外，还有一种叫做<strong>架构模式（architectural pattern）——我的理解就是软件架构</strong>来研究如何设计程序结构，而以<strong>MVC、MVP、MVVM</strong>为代表的<strong>MV*</strong>就是一种架构模式，也就是说<strong>MV*不是设计模式</strong>，不过由于MVC里面包含了设计模式，比如观察者模式，所以我的理解就是<strong>架构模式是多种设计模式的综合</strong>。</p>
+<p>而在前端这块，这三种架构模式常常被用来设计各种框架、库、模版引擎，比如Backbone.js、Ember.js、Spine.js、Angular.js、React.js等等，前一段时间想了解的博客主题中也采用了相关设计，在这篇文章中我会对近期学习这三者的简单理解进行总结。</p>
+<a id="more"></a>
+<h2 id="UI中的三个问题：State（状态）、Logic（逻辑）和Synchronization（同步）">UI中的三个问题：State（状态）、Logic（逻辑）和Synchronization（同步）</h2><p>State：可以称为状态或者叫数据，它意味着UI当前描述的数据。</p>
+<p>Logic：这里的逻辑指的是UI逻辑，我的理解是交互（或者叫显示）的逻辑，而不是业务逻辑。</p>
+<p>Synchronization：指的是UI需要与业务变化保持一致，比如说一些数据。</p>
+<h2 id="MVC">MVC</h2><p><strong>MVC</strong>是<strong>Model（模型）</strong>、<strong>View（视图）</strong>、<strong>Controller（控制器）</strong>三个单词首字母的缩写。Model代表了业务数据，View代表了用户界面，Controller代表了业务逻辑和用户输入。这三部分既相互独立又相互联系。</p>
+<p><strong>Model</strong>和View之间是观察者模式，当Model改变时，它会通知它的观察者View（可能会有多个观察者View），这样View就可以做出相应改变。Model可以复用。</p>
+<p><strong>View</strong>是Model的可视化表示，在JavaScript是关于构建和维和一个DOM元素，一个View会检测Model，并在Model更改时进行通知，使View本身能够相应的更新。</p>
+<p><strong>Controller</strong>是Model和View之间的中介，当用户操作View时，它通常负责更新Model，它也会根据不同的action（用户的操作）来决定View的显示，这里我的理解是它单纯地负责路由，如果它更偏向于View的逻辑部分，那么这个C就会变成MVP中的P。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/MVC-Process.svg" alt="MVC各个元素之间的关系"></p>
+<p>在MVC中，View里面的每一个action（用户操作）都与一个Controller中action的调用相关联，一旦Controller完成了相关处理，它就会返回给View，让View进行渲染，相关顺序：</p>
+<blockquote>
+<p>Action in the View -&gt; Call to Controller -&gt; Controller Logic -&gt; Controller returns the View</p>
+</blockquote>
+<p>另外View和Controller之间是没有绑定的，View只是根据Controller返回的结果进行渲染，因此它是无状态的。</p>
+<h2 id="MVP">MVP</h2><p><strong>MVP</strong>是<strong>Model（模型）</strong>、<strong>View（视图）</strong>、<strong>Presenter（表示器）</strong>三个单词首字母的缩写。M和V的意思和MVC差不多，它是MVC模式的一种衍生模式，专注于改进表示逻辑，这里我的理解是Presenter包含了View的业务逻辑，所以说是改进了表示逻辑。正因为它包含了View的业务逻辑，来自View的调用将委托给Presenter，Presenter从View中解耦，通过接口与它对话。</p>
+<p>举个例子，一个人点击了“保存”按钮，这个事件就会委托给Presenter中的“OnSave”方法，一旦保存完成，Presenter就会通过它的接口回调给View，这样View就可以显示保存已经完成。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/Model_View_Presenter_GUI_Design_Pattern.png" alt="MVP各个元素之间的关系"></p>
+<p>Presenter处于View和Model之间，从Model中取数据，格式化后让View显示。</p>
+<p>Passive View（被动视图）是指View保存着State，但业务逻辑保存在Presenter中，Presenter是View和Model的中介者，使得View和Model分离开来（这和MVC不同，MVC中V和M并没有完全分离）。</p>
+<p>Supervising Controller（监管表示器）是指Presenter是某种形式的Controller（所以说它是MVC的衍生模式），Presenter可以明白View的行为，但反之不行</p>
+<h2 id="MVVM">MVVM</h2><p><strong>MVVM</strong>是<strong>Model（模型）</strong>、<strong>View（视图）</strong>、<strong>ViewModel（视图模型）</strong>三个单词首字母的缩写。我认为它和MVP比较相似，ViewModel相当于MVP中Presenter的位置。在MVP提到过View和Presenter是通过接口来进行交互，而在MVVM中则是通过数据绑定来进行交互，这是双向而且自动的。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/MVVMPattern.png" alt="MVVVM各元素之间的关系"></p>
+<p>VM其实也是V和M的中介者，用维基百科上的话说就是一个“值转换器（a value converter）”，将Model中的数据对象转换为View可以直接使用的形式。Model保存原始格式的数据，View包含格式化后的数据。</p>
+<h2 id="小结">小结</h2><p>个人认为这三种模式都有其适应的场景，并不是谁先进谁落后的问题，它们都以将视图和逻辑分离为目标，但在一些具体实现上还是有所差别，比如说MVVM中的数据绑定就很好的优化了数据频繁更新的问题。</p>
+<p>本篇文章只是我学习MV<em>架构模式的初步理解，还有很多地方值得思考，比如这三种模式的具体应用和实现，比如每一个组件之间的依赖关系，比如说业务逻辑和显示逻辑两者的理解等等，以后逐步完善对于MV\</em>的的理解。</p>
+<h2 id="参考">参考</h2><ul>
+<li><a href="http://book.douban.com/subject/24744217/" target="_blank" rel="external">《JavaScript设计模式》</a></li>
+<li><a href="http://www.codeproject.com/Articles/66585/Comparison-of-Architecture-presentation-patterns-M" target="_blank" rel="external">http://www.codeproject.com/Articles/66585/Comparison-of-Architecture-presentation-patterns-M</a></li>
+<li><a href="http://stackoverflow.com/questions/2056/what-are-mvp-and-mvc-and-what-is-the-difference" target="_blank" rel="external">http://stackoverflow.com/questions/2056/what-are-mvp-and-mvc-and-what-is-the-difference</a></li>
+<li><a href="http://stackoverflow.com/questions/667781/what-is-the-difference-between-mvc-and-mvvm" target="_blank" rel="external">http://stackoverflow.com/questions/667781/what-is-the-difference-between-mvc-and-mvvm</a></li>
+<li><a href="http://www.zhihu.com/question/20148405" target="_blank" rel="external">http://www.zhihu.com/question/20148405</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Model_View_ViewModel" target="_blank" rel="external">https://en.wikipedia.org/wiki/Model_View_ViewModel</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank" rel="external">https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter" target="_blank" rel="external">https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html</a></li>
+<li><a href="http://www.cnblogs.com/winter-cn/p/4285171.html" target="_blank" rel="external">http://www.cnblogs.com/winter-cn/p/4285171.html</a></li>
+</ul>
+
+        
+
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/MVC/">
+                #MVC
+              </a>
+            
+              <a href="/tags/MVP/">
+                #MVP
+              </a>
+            
+              <a href="/tags/MVVM/">
+                #MVVM
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    
+      <div class="comments" id="comments">
+        <div class="ds-thread" data-thread-key="2015/08/01/对于MV-模式的初步理解/"
+             data-title="对于MV*模式的初步理解" data-url="https://nekonyan.me/2015/08/01/对于MV-模式的初步理解/">
+        </div>
+      </div>
+    
+  
+
+          </div>
+
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">nekonyan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+</div>
+
+
+
+  <div class="cc-license">
+    <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+      <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+    </a>
+  </div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/dist/jquery.min.js?v=0.3.0rc1"></script>
+  <script src="/vendors/jquery/dist/forkme-1.0.js"></script>
+
+  <script type="text/javascript">
+      //渲染forkme
+      //第一个参数是显示的文本
+      //第二个参数是链接地址
+      $(document).ready(function(){
+        $("body").forkme("View Forkme","https://github.com/shuaiyunzhang");
+      });
+  </script>
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var body = $('body');
+      var isSidebarVisible = false;
+      var sidebarToggle = $('.sidebar-toggle');
+      var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+      var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+      var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+      var sidebar = $('.sidebar');
+
+      var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+      var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+      var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+      var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+      var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+      var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+      var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+      sidebatToggleMotion();
+      postsListMotion();
+      backToTopMotion();
+
+      function sidebarContentMotion () {
+        $('.sidebar .motion-element').velocity(
+          'transition.slideRightIn',
+          {stagger: 50, drag: true}
+        );
+      }
+
+
+      function backToTopMotion () {
+        var b2top = $('.back-to-top');
+        b2top.on('click', function () {
+          body.velocity('scroll');
+        });
+      }
+
+      function sidebarShowMotion () {
+        var sidebarDisplayDuration = 300;
+        var sidebarWidth = '320px';
+
+        sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+        sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+        sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+        sidebar.velocity({width: sidebarWidth}, sidebarDisplayDuration);
+        isDesktop() && body.velocity({paddingRight: sidebarWidth}, sidebarDisplayDuration);
+        sidebarContentMotion();
+      }
+
+      function sidebarHideMotion () {
+        isDesktop() && body.velocity({paddingRight: 0});
+        sidebar.velocity('reverse');
+
+        sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+      };
+
+      function postsListMotion () {
+        $('.post').velocity('transition.slideDownIn', {stagger: 300, drag: true});
+      }
+
+      function sidebatToggleMotion () {
+        sidebarToggle.on('click', function () {
+          isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+          isSidebarVisible = !isSidebarVisible;
+        });
+        sidebarToggle.hover(function () {
+          if (isSidebarVisible) {return}
+          sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+          sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+          sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+        }, function () {
+          if (isSidebarVisible) {return}
+          sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+          sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+          sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+        });
+      }
+
+      function isDesktop () {
+        return screen.width > 991;
+      }
+
+      function isTablet () {
+        return screen.width < 992 && screen.width > 767;
+      }
+
+      function isMobile () {
+        return screen.width < 767;
+      }
+    });
+  </script>
+
+  
+
+  
+  
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var html = $('html');
+
+        $('.sidebar-nav li').on('click', function () {
+          var item = $(this);
+          var activeTabClassName = 'sidebar-nav-active';
+          var activePanelClassName = 'sidebar-panel-active';
+          if (item.hasClass(activeTabClassName)) {
+            return;
+          }
+
+          var currentTarget = $('.' + activePanelClassName);
+          var target = $('.' + item.data('target'));
+
+          $.Velocity
+            .animate(currentTarget, 'transition.slideUpOut', 200)
+            .then(function () {
+              target
+              .velocity('stop')
+              .velocity('transition.slideDownIn', 200)
+              .addClass(activePanelClassName);
+            });
+
+          item.siblings().removeClass(activeTabClassName);
+          item.addClass(activeTabClassName);
+        });
+
+        $('.post-toc a').on('click', function (e) {
+          e.preventDefault();
+          var offset = $(this.getAttribute('href')).offset().top;
+          html.velocity('stop').velocity('scroll', {
+            offset: offset  + 'px',
+            mobileHA: false
+          });
+        });
+      });
+    </script>
+  
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nekonyan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+  <script type="text/javascript">
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-59831850-1');ga('send','pageview');
+  </script>
+
+</body>
+</html>

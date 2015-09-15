@@ -1,0 +1,536 @@
+<!doctype html>
+<html class="theme-next use-motion">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+  <meta name="google-site-verification" content="google65db1e6d85524020.html" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.3.0rc1"/>
+
+
+
+
+    <link rel="alternate" href="/atom.xml" title="Nekonyan's秘密基地" type="application/atom+xml" />
+
+
+
+    <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.3.0rc1" />
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39d05a0d6cdd082f9a0da1f7dd8028d6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <title> 学习GitHub（非命令行）操作总结之二 // Nekonyan's秘密基地 </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+    <a href="/" class="brand">
+        <span class="logo">
+          <i class="icon-logo"></i>
+        </span>
+        <span class="site-title">Nekonyan's秘密基地</span>
+    </a>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      
+        <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-about">
+        <a href="/about/">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-archives">
+        <a href="/archives/">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+      
+        </a>
+      </li>
+    
+      
+      
+        <li class="menu-item menu-item-tags">
+        <a href="/tags/">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+      
+        </a>
+      </li>
+    
+      
+      
+         
+      <li class="menu-item menu-item-feed">
+        <a href="/atom.xml">
+          <i class="menu-item-icon icon-feed"></i> <br />
+          
+          RSS
+      
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
+  
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              学习GitHub（非命令行）操作总结之二
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+          <span class="post-time">
+            
+              发表于 2015-08-02
+            
+          </span>
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/02/学习GitHub（非命令行）操作总结之二/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/02/学习GitHub（非命令行）操作总结之二/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p>学习GitHub（非命令行）操作总结的第二篇。这篇文章的内容是对GitHub操作背后原理的介绍，算是很重要的内容。</p>
+<a id="more"></a>
+<h2 id="简单分支操作">简单分支操作</h2><h4 id="分支的概念">分支的概念</h4><p>我们对某个仓库的具体内容的操作，比如对文件的增删等等，在提交之后都会形成一个个提交版本，每一个提交均会包含指向前一次提交的“指针”，这样就会形成前面出现过的一长串的提交链。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba012.png" alt="提交版本"></p>
+<p>而这一长串的提交就放在分支中，在图片中显示就是有一个名为“master”的指针指向最后一次提交，这里一般来说master是GitHub默认指针名，也就是默认分支。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba023.png" alt="master分支"></p>
+<p>这样，出现了分支名指针的一长串提交就成为了分支。</p>
+<p>master分支是默认的分支，中文名为主分支，它和用户自己创建的其他分支在原理上没有区别。而GitHub官方建议是master分支应该用来存放稳定版本的代码。</p>
+<blockquote>
+<p>master 分支上的所有代码都应该是可以部署的</p>
+</blockquote>
+<h4 id="创建新分支">创建新分支</h4><p>首先进入“Branches”一栏，点击master分支右边的“+”，输入新建分支的名字，然后点击“Branch”，就会创建一个新分支，<strong>注意这个新分支的内容是和master分支完全一致的</strong>。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba024.png" alt=""></p>
+<p>点击新分支“anomaster”右边的“Switch to This Branch”可以进行切换分支。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba025.png" alt="切换分支"></p>
+<p>然后来看背后是怎么实现的。新分支和master分支内容一样，并不意味着创建了master的副本，而是创建了一个名为anomaster的新指针和master指针指向了同一次提交，没有创建master的副本。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba026.png" alt="anomaster新分支"></p>
+<p>如果在切换到anomaster分支的情况下作出了修改，并进行提交，则master分支指针指向的提交没变，而anomaster分支指针指向了c3。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba027.png" alt="anomaster分支下提交"></p>
+<h4 id="创建新分支的目的">创建新分支的目的</h4><p>前面说到过，master分支上的代码是十分重要的，但如果我们对于某个项目有了新的想法怎么办，那就可以创建新分支，切换到这个新分支后来进行实践，这样就不会污染到master分支上的重要代码。如果新的思路很好就可以合并到master分支，也就是下一节要介绍的内容。</p>
+<h4 id="实际操作">实际操作</h4><p>首先切换到anomaster分支，然后打开编辑器，添加一个新文件anomaster，内容为“this is a new branch named anomaster”</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba028.png" alt=""></p>
+<p>然后打开客户端，进入“Changes”栏，可以发现只有一个文件anomaster，说明这是anomaster分支，然后提交。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba029.png" alt=""></p>
+<p>进入“History”栏查看可以发现所有提交，不管是master分支还是anomaster分支，这点也恰好说明了前面新建指针理论的正确。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba030.png" alt=""></p>
+<p>这时候我们新建的分支还没有同步到远端的仓库，进入“Branches”栏，点击“Publish”就可以将新分支发布到远端仓库，完成后变为“Published”。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba031.png" alt=""></p>
+<p>再回到网页端，可以发现branches数变为了2</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba032.png" alt=""></p>
+<h4 id="删除分支">删除分支</h4><p>当我们发现某个分支已经没有用时，我们会选择删除它，这里需要注意的是<strong>当前分支是无法删除的，不在使用的分支才允许被删除，这样的删除不仅会删除本地的分支也会删除掉远端的分支。不过master分支就算不在使用也是无法删除的，因为它是默认分支。</strong></p>
+<p>当前分支删除选项灰白，无法删除。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba033.png" alt=""></p>
+<p>非当前分支删除选项可以使用。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba034.png" alt=""></p>
+<p>如果只想删除远端的分支，不想删除本地的分支的话，可以选择选项框中的“Unpublish”选项。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba035.png" alt=""></p>
+<p>再回到网页端就会发现anomaster分支已经不存在了。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba036.png" alt=""></p>
+<h4 id="网页端创建新分支">网页端创建新分支</h4><p>图中的文本框有两个作用，一是当分支较多时查找分支，二是创建新分支，这里创建一个新分支testbran</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba037.png" alt=""></p>
+<p>在客户端点一下“Sync”就可以将远端创建的新分支同步到本地客户端。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba038.png" alt=""></p>
+<h4 id="如何修改默认分支">如何修改默认分支</h4><p>前面提到过默认分支master是无法删除的，如果想把它删除就只有修改默认分支。进入网页端，点击右边的“Settings”。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba039.png" alt=""></p>
+<p>点击“Default branch”进行选择。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba040.png" alt=""></p>
+<p>这样就修改了默认分支为testbran。</p>
+<p>不过一般来说是不会去修改默认分支的，也不会去删除master分支。</p>
+<h2 id="分支合并">分支合并</h2><p>当新的分支被认可时，就可以将新分支合并到master分支中，这里我决定合并anomaster分支和master分支。</p>
+<p>先在客户端切换到master分支，然后点击右上角的“Merge View”，就会出现两个融合框，Merge本身就是就是合并、融合的意思，这里是将前一个框中的分支合并到后一个框中。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba041.png" alt=""></p>
+<p>客户端比较好的一点就是这里可以将对应的分支拖动到融合框中，拖动完成后点击“Merge Branches”。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba042.png" alt=""></p>
+<p>再回到“History”栏，可以看到在原有master分支基础上增加了两个提交：new branch和Merge branch ‘anomaster’，毫无疑问，new branch是anomaster分支中一次提交的内容，而另外一次提交则是特殊的融合提交。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba043.png" alt=""></p>
+<p>这个特殊的融合提交就相当于图中的c5，它不会修改内容，作用就是将两个分支合并起来，它拥有两个指针，一个指向anomaster分支的最新提交，另外一个指向master分支的最新提交，最后master指针移动到c5，这样master分支就代表原有两分支的合并。这时候anomaster分支可以删除了。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba044.png" alt=""></p>
+<h4 id="分支合并的方式">分支合并的方式</h4><p>分支合并除了上面提到的merge之外，还有另外一种叫做rebase（变基），这两者的作用都是一样的，就是将两个分支进行合并，但产生的后果不同。</p>
+<p>在某个分支B上对分支A进行merge后，分支A就被合并到分支B上去了，但分支A还存在，而且在合并后的分支会产生一个“Merge XXX”提交。</p>
+<p>在某个分支B上对分支A进行rebase后，分支A就被合并到分支B上去，但分支A不存在了，只剩下了一条分支，在合并后的分支不会产生“Merge XXX”的提交。</p>
+<p>举个例子，远端仓库别人在master分支进行了提交，这时候本地的master分支还没有那个提交，需要进行同步来将远端和本地两处的master分支进行合并（<strong>注意这里远端和本地的master分支严格意义上是不同的两个分支，所以可以进行合并</strong>），合并完成后可以发现commit的历史版本中并没有“Merge XXX”的提交，因为这种合并是rebase合并。</p>
+<h4 id="代码冲突（Sync_Conflicts）">代码冲突（Sync Conflicts）</h4><p>在实际的开发中，一个仓库的不同分支可能都在同时开发，当代码开发位置不冲突时可以直接合并（merge或rebase），这样不会出现什么问题。</p>
+<p>但当代码开发位置发生冲突时，比如都在编辑同一个地方，这个时候合并（merge或rebase）就会产生问题，因为git它不知道该听谁的编辑，这个时候就只能交给人来解决。</p>
+<p>比如两个人均要修改邮件地址，但这两个人却修改成了不同的邮件地址，当某一方提交后，后面一点的再提交就会出现同步错误的提示，这个时候打开编辑器可以发现冲突位置的变化。</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/githuba045.png" alt=""></p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Head代表的是当前分支，这里是本地的master分支，=====是两个代码冲突块的分界线，下面的&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/master表示的是远端的master分支，解决冲突就是把上面的三行“冲突标示符”都删掉，然后修改代码。之后，回到客户端，点击“Commit to Master”。 这样，这次分支合并就完成了，也会生成一个“merge commit”。</p>
+<p><em>貌似关于rebase那一段的解释有点问题，这里先放着，见参考的第二个链接</em></p>
+<h2 id="参考">参考</h2><ul>
+<li><a href="http://book.haoduoshipin.com/gitbeijing/" target="_blank" rel="external">http://book.haoduoshipin.com/gitbeijing/</a></li>
+<li><a href="http://gitbook.liuhui998.com/4_2.html" target="_blank" rel="external">http://gitbook.liuhui998.com/4_2.html</a></li>
+</ul>
+
+        
+
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Git/">
+                #Git
+              </a>
+            
+              <a href="/tags/GitHub/">
+                #GitHub
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+
+
+
+  
+    
+      <div class="comments" id="comments">
+        <div class="ds-thread" data-thread-key="2015/08/02/学习GitHub（非命令行）操作总结之二/"
+             data-title="学习GitHub（非命令行）操作总结之二" data-url="https://nekonyan.me/2015/08/02/学习GitHub（非命令行）操作总结之二/">
+        </div>
+      </div>
+    
+  
+
+          </div>
+
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">nekonyan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT</a>
+</div>
+
+
+
+  <div class="cc-license">
+    <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+      <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+    </a>
+  </div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/dist/jquery.min.js?v=0.3.0rc1"></script>
+  <script src="/vendors/jquery/dist/forkme-1.0.js"></script>
+
+  <script type="text/javascript">
+      //渲染forkme
+      //第一个参数是显示的文本
+      //第二个参数是链接地址
+      $(document).ready(function(){
+        $("body").forkme("View Forkme","https://github.com/shuaiyunzhang");
+      });
+  </script>
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".fancybox").fancybox();
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      var body = $('body');
+      var isSidebarVisible = false;
+      var sidebarToggle = $('.sidebar-toggle');
+      var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+      var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+      var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+      var sidebar = $('.sidebar');
+
+      var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+      var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+      var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+      var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+      var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+      var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+      var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+      var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+      sidebatToggleMotion();
+      postsListMotion();
+      backToTopMotion();
+
+      function sidebarContentMotion () {
+        $('.sidebar .motion-element').velocity(
+          'transition.slideRightIn',
+          {stagger: 50, drag: true}
+        );
+      }
+
+
+      function backToTopMotion () {
+        var b2top = $('.back-to-top');
+        b2top.on('click', function () {
+          body.velocity('scroll');
+        });
+      }
+
+      function sidebarShowMotion () {
+        var sidebarDisplayDuration = 300;
+        var sidebarWidth = '320px';
+
+        sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+        sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+        sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+        sidebar.velocity({width: sidebarWidth}, sidebarDisplayDuration);
+        isDesktop() && body.velocity({paddingRight: sidebarWidth}, sidebarDisplayDuration);
+        sidebarContentMotion();
+      }
+
+      function sidebarHideMotion () {
+        isDesktop() && body.velocity({paddingRight: 0});
+        sidebar.velocity('reverse');
+
+        sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+      };
+
+      function postsListMotion () {
+        $('.post').velocity('transition.slideDownIn', {stagger: 300, drag: true});
+      }
+
+      function sidebatToggleMotion () {
+        sidebarToggle.on('click', function () {
+          isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+          isSidebarVisible = !isSidebarVisible;
+        });
+        sidebarToggle.hover(function () {
+          if (isSidebarVisible) {return}
+          sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+          sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+          sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+        }, function () {
+          if (isSidebarVisible) {return}
+          sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+          sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+          sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+        });
+      }
+
+      function isDesktop () {
+        return screen.width > 991;
+      }
+
+      function isTablet () {
+        return screen.width < 992 && screen.width > 767;
+      }
+
+      function isMobile () {
+        return screen.width < 767;
+      }
+    });
+  </script>
+
+  
+
+  
+  
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var html = $('html');
+
+        $('.sidebar-nav li').on('click', function () {
+          var item = $(this);
+          var activeTabClassName = 'sidebar-nav-active';
+          var activePanelClassName = 'sidebar-panel-active';
+          if (item.hasClass(activeTabClassName)) {
+            return;
+          }
+
+          var currentTarget = $('.' + activePanelClassName);
+          var target = $('.' + item.data('target'));
+
+          $.Velocity
+            .animate(currentTarget, 'transition.slideUpOut', 200)
+            .then(function () {
+              target
+              .velocity('stop')
+              .velocity('transition.slideDownIn', 200)
+              .addClass(activePanelClassName);
+            });
+
+          item.siblings().removeClass(activeTabClassName);
+          item.addClass(activeTabClassName);
+        });
+
+        $('.post-toc a').on('click', function (e) {
+          e.preventDefault();
+          var offset = $(this.getAttribute('href')).offset().top;
+          html.velocity('stop').velocity('scroll', {
+            offset: offset  + 'px',
+            mobileHA: false
+          });
+        });
+      });
+    </script>
+  
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nekonyan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+  <script type="text/javascript">
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-59831850-1');ga('send','pageview');
+  </script>
+
+</body>
+</html>
