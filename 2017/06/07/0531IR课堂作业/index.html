@@ -38,11 +38,11 @@
     })();
   </script>
 
-  <title> 归档 // Nekonyan's秘密基地 </title>
+  <title> 0531IR课堂作业 // Nekonyan's秘密基地 </title>
 </head>
 
 <body>
-  <div class="container one-column  page-archive ">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -124,34 +124,9 @@
             
           
 
-          <div id="posts" class="posts-collapse">
+          <div id="posts" class="posts-expand">
             
-
-  <span class="archive-move-on"></span>
-
-  <span class="archive-page-counter">
-    
-    
-     
-    
-    嗯..! 目前共计 9 个日志。 继续努力。
-  </span>
-
   
-
-    
-    
-    
-
-    
-      
-      <div class="collection-title">
-        <h2 class="archive-year motion-element" id="archive-year-2015">2015</h2>
-      </div>
-    
-    
-
-    
 
   <div class="post post-type-normal ">
     <div class="post-header">
@@ -162,9 +137,7 @@
           
           
             
-              <a class="post-title-link" href="/2015/08/02/对于前端模块化的学习总结/">
-                对于前端模块化的学习总结
-              </a>
+              0531IR课堂作业
             
           
         </h1>
@@ -173,15 +146,15 @@
       <div class="post-meta">
           <span class="post-time">
             
-              08-02
+              发表于 2017-06-07
             
           </span>
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/08/02/对于前端模块化的学习总结/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/02/对于前端模块化的学习总结/"></span>
+            <a href="/2017/06/07/0531IR课堂作业/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/07/0531IR课堂作业/"></span>
             </a>
           </span>
           
@@ -190,336 +163,62 @@
     </div>
 
     
+      <div class="post-body">
 
+        
+        
+
+        
+          <p>开始时，借用同学的阿里云账号登陆，找了半天在Mac使用的SSH客户端，最后回归到Mac本身的Terminal。但新问题又来了，在输入用户名和密码后，一直显示<code>Permission denied</code>，在这个地方找了很久的原因。</p>
+<a id="more"></a>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/001.png" alt=""></p>
+<p>最后仍没有解决问题，猜测是公钥权限的问题，但不是很清楚，比较复杂放弃。所以自己购买了阿里云，然后问题又来了，在登陆的时候，输入了用户名（root）和密码，还是显示<code>login incorrect</code>，原因未知，至少以前使用云时没遇到过这种问题。为了节省时间，选择还是在本地操作，当然云上的问题解决同步进行，这里主要记录本地的操作。</p>
+<h3 id="Java安装">Java安装</h3><p>这里没遇到什么问题，云上也是自带的，均为最新的java版本，带过。</p>
+<h3 id="Solr的安装">Solr的安装</h3><p>这里下载的是solr-6.5.1的tgz版本，下载地址为官网提供的镜像地址，下载之后解压，参照老师上课给的资料以及官网文档，进入solr管理界面。</p>
+<pre><code>$ <span class="built_in">cd</span> solr-<span class="number">6.5</span>.<span class="number">1</span>/
+$ bin/solr start <span class="operator">-e</span> techproducts
+</code></pre><p><img src="http://7vzok8.com1.z0.glb.clouddn.com/002.png" alt=""></p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/003.png" alt=""></p>
+<h3 id="构建查询">构建查询</h3><p>进入对应core的查询界面</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/004.png" alt=""></p>
+<p>可以直接在图形化界面操作，也可以构建查询表达式，两者的效果是等效的。在地址栏直接输入</p>
+<pre><code><span class="symbol">http:</span>/<span class="regexp">/localhost:8983/solr</span><span class="regexp">/techproducts/select</span>?indent=on&amp;q=*<span class="symbol">:*&amp;wt=json</span>
+</code></pre><p><img src="http://7vzok8.com1.z0.glb.clouddn.com/005.png" alt=""></p>
+<h3 id="分面功能的使用">分面功能的使用</h3><p>要使用分面首先得在Query界面启用分面，即facet的值为true，然后就是其他facet参数的设置。比如查找价格范围为0到400的产品，并按类别对结果进行分组。</p>
+<pre><code><span class="link_url">http://localhost:8983/solr/techproducts/select?q=price:</span>[<span class="link_label">0 TO 400</span>]&amp;fl=id,name,price&amp;facet=true&amp;facet.field=cat
+</code></pre><p><img src="http://7vzok8.com1.z0.glb.clouddn.com/006.png" alt=""></p>
+<p>在命令行输入</p>
+<pre><code>curl 'http://localhost:<span class="number">8983</span>/solr/techproducts/select?<span class="variable">wt=</span>json&amp;<span class="variable">indent=</span><span class="constant">true</span>&amp;<span class="variable">q=</span>*:*&amp;<span class="variable">rows=</span><span class="number">0</span>'\
+'&amp;<span class="variable">facet=</span><span class="constant">true</span>&amp;facet.<span class="variable">field=</span>manu_id_s'
+</code></pre><p>结果为</p>
+<p><img src="http://7vzok8.com1.z0.glb.clouddn.com/007.png" alt=""></p>
+
+        
+
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+
+        
+
+        
+      </div>
     
   </div>
 
 
 
   
-
     
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/01/对于MV-模式的初步理解/">
-                对于MV*模式的初步理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-          <span class="post-time">
-            
-              08-01
-            
-          </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/08/01/对于MV-模式的初步理解/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/01/对于MV-模式的初步理解/"></span>
-            </a>
-          </span>
-          
-        
+      <div class="comments" id="comments">
+        <div class="ds-thread" data-thread-key="2017/06/07/0531IR课堂作业/"
+             data-title="0531IR课堂作业" data-url="https://nekonyan.me/2017/06/07/0531IR课堂作业/">
+        </div>
       </div>
-    </div>
-
     
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/17/CSS布局之圣杯布局-双飞翼布局/">
-                CSS布局之圣杯布局&双飞翼布局以及栅格系统
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-          <span class="post-time">
-            
-              07-17
-            
-          </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/17/CSS布局之圣杯布局-双飞翼布局/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/17/CSS布局之圣杯布局-双飞翼布局/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/12/BFC的初步探索/">
-                BFC的初步探索
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-          <span class="post-time">
-            
-              05-12
-            
-          </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/12/BFC的初步探索/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/12/BFC的初步探索/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/04/06/网站http改为https方法的初步探索/">
-                网站http改为https方法的初步探索
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-          <span class="post-time">
-            
-              04-06
-            
-          </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/04/06/网站http改为https方法的初步探索/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/06/网站http改为https方法的初步探索/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/03/27/博客从GitHub迁移到GitCafe的记录/">
-                博客从GitHub迁移到GitCafe的记录
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-          <span class="post-time">
-            
-              03-27
-            
-          </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/03/27/博客从GitHub迁移到GitCafe的记录/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/27/博客从GitHub迁移到GitCafe的记录/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-
-    
-  </div>
-
-
-
-  
-
-    
-    
-    
-
-    
-    
-
-    
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/02/17/Hexo博客搭建二三事/">
-                Hexo博客搭建二三事
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-          <span class="post-time">
-            
-              02-17
-            
-          </span>
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/02/17/Hexo博客搭建二三事/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/17/Hexo博客搭建二三事/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    
-
-    
-  </div>
-
-
-
   
 
           </div>
@@ -702,7 +401,42 @@
   
   
     <script type="text/javascript">
-      $('.archive-year').velocity('transition.slideLeftIn');
+      $(document).ready(function () {
+        var html = $('html');
+
+        $('.sidebar-nav li').on('click', function () {
+          var item = $(this);
+          var activeTabClassName = 'sidebar-nav-active';
+          var activePanelClassName = 'sidebar-panel-active';
+          if (item.hasClass(activeTabClassName)) {
+            return;
+          }
+
+          var currentTarget = $('.' + activePanelClassName);
+          var target = $('.' + item.data('target'));
+
+          $.Velocity
+            .animate(currentTarget, 'transition.slideUpOut', 200)
+            .then(function () {
+              target
+              .velocity('stop')
+              .velocity('transition.slideDownIn', 200)
+              .addClass(activePanelClassName);
+            });
+
+          item.siblings().removeClass(activeTabClassName);
+          item.addClass(activeTabClassName);
+        });
+
+        $('.post-toc a').on('click', function (e) {
+          e.preventDefault();
+          var offset = $(this.getAttribute('href')).offset().top;
+          html.velocity('stop').velocity('scroll', {
+            offset: offset  + 'px',
+            mobileHA: false
+          });
+        });
+      });
     </script>
   
 
